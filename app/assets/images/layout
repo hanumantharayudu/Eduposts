@@ -1,0 +1,22 @@
+<ul class="nav">
+              <% if params[:controller] == 'profiles' && params[:action] == 'index' %>
+                <li class="active"><%= link_to image_tag("/assets/home_icon_blue.png", :height => "15px", :width => "15px")+'Home', profiles_path  %></li>
+              <% else %>
+                <li><%= link_to image_tag("/assets/home_icon_default.png", :height => "15px", :width => "15px")+'Home', profiles_path  %></li>
+              <% end %>
+              <% if params[:controller] == 'teachers' %>
+                <li class="active"><%= link_to image_tag("/assets/@_grey.png", :height => "15px", :width => "15px")+'Connect',""  %></li>
+              <% else %>
+                <li><%= link_to image_tag("/assets/home_icon_default.png", :height => "15px", :width => "15px")+'Connect', "" %></li>
+              <% end %>
+              <% if params[:controller] == "profiles" && params[:action] == 'show' || params[:action] == 'edit' || params[:action] == 'edit_password' || params[:action] == 'update' || params[:action] == 'update_password' %>
+                <li class="active"><%= link_to image_tag("/assets/my_tweets_icon_blue.png", :height => "15px", :width => "15px")+"Me", profile_path(current_user) %></li>
+              <% else %>
+                <li><%= link_to image_tag("/assets/my_tweets_icon_default.png", :height => "15px", :width => "15px")+"Me", profile_path(current_user) %></li>
+              <% end %>
+              <% if params[:controller] == "students" %>
+                <li class="active"><%= link_to image_tag("/assets/class_blue.png", :height => "15px", :width => "15px")+"Class", "" %></li>
+              <% else %>
+                <li><%= link_to image_tag("/assets/class_grey.png", :height => "15px", :width => "15px")+"Class", "" %></li>
+              <% end %>
+            </ul>

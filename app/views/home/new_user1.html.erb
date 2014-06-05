@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <title>Eduposts</title>
+    <link href="/assets/bootstrap_files/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/bootstrap_files/bootstrap-responsive.css" rel="stylesheet">
+  </head>
+
+  <body class="blue_background">
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <img class="paper_plane" src="/assets/paper_plane_icon.png" height="50px" width="50px"/>
+          <div class="nav-collapse collapse">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="row-fluid">
+
+        <div class="span4">
+          <div class="box_l1_hp no_white_border">
+            <div class="welcome_message_box margin_fix">
+              <h4>Welcome, <%= current_user.first_name %>!</h4>
+    					Get started in less than 60 seconds.
+            </div>
+            <div class="welcome_message_box_bottom">
+              <%= link_to "<button type='button' class='btn'>Next</button>".html_safe, new_user2_home_path(current_user) %>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="span8">
+          <div class="box_r1_hp">
+            <h2 class="posts_title">Posts</h2>
+            <div class="posts_box">
+              <%= image_tag("/assets/profile_placeholder.png", :height => '50px', :width => '50px;', :class => "profile_pic img-rounded") %>
+              <div class="post">
+                <h5 class="post_name">John Doe</h5>
+                <div class="post_at">&nbsp@JohnDoe</div>
+                <div class="post_time">5m</div>
+                <div class="post_text">Welcome to EduPosts</div>
+                <div class="action_row">
+                  <%= link_to image_tag("/assets/discussion.png", :height => '10px;', :width => '10px;')+"View Conversation", "" %>
+                  &nbsp&nbsp
+                  <%= link_to image_tag("/assets/reply_icon.png", :height => '10px;', :width => '10px;')+"Reply", "" %>
+                  &nbsp&nbsp
+                  <%= link_to image_tag("/assets/repost_icon.png", :height => '10px;', :width => '10px;')+"Repost", "" %>
+                  &nbsp&nbsp
+                  <%= link_to image_tag("/assets/favorite_icon.png", :height => '10px;', :width => '10px;')+"Favorite", "" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- /.row_fluid" -->
+  </body>
+</html>
+<style>
+  .box_r1_hp {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 900px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    border: 1px solid white;
+    box-shadow: 0px 0px 1px 1px rgb(255, 255, 255) inset, 0px 1px 5px rgba(0, 0, 0, 0.3);
+  }
+</style>

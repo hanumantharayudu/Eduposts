@@ -1,0 +1,17 @@
+<div style="position: relative;top: 50px;background-color: white;border: 1px solid gray;">
+  <h2 style="font-size: 22px;line-height: 20px;">Forgot your password?</h2>
+  <div style="display :none;color :red; font-size: 14px;position: relative;z-index: 1001;" id=<%= params[:role] == 'student' ? 'error' : 'error2'%>>Invalid Email.</div>
+  <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post },:remote => true) do |f| %>
+    <%= f.hidden_field :role,:value => params[:role] %>
+    <table cellpadding="10px">
+      <tr>
+        <td>
+          <%= f.email_field :email, :class => 'input-xlarge', :id => "inputEmail", :placeholder => "Email" %>
+        </td>
+      </tr>
+      <tr>
+        <td><%= f.submit "Recover", :class => "btn btn-warning span5 gray_button", :style => 'width: 85px;margin-left: 230px;'%></td>
+      </tr>
+    </table>
+  <% end %>
+</div>

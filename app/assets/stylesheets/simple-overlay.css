@@ -1,0 +1,47 @@
+#simple-overlay table {
+  width: 100%;
+  height: 100%;
+}
+
+#simple-overlay table td#simple-overlay-content-container {
+  text-align: center;
+  vertical-align: middle;
+}
+
+#simple-overlay table td#simple-overlay-content-container div#simple-overlay-wrapper {
+  box-shadow: 0 10px 20px black;
+  display: inline-block;
+  min-width: 600px;
+  text-align: left;
+}
+
+#simple-overlay table td#simple-overlay-content-container div#simple-overlay-wrapper .close {
+  background-image: url("/assets/simple-overlay-close.gif");
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: 10px 10px 10px 10px;
+  display: block;
+  float: right;
+  padding: 10px;
+  position: relative;
+  margin: 5px;
+  cursor: pointer;
+}
+
+#simple-overlay table td#simple-overlay-content-container div#simple-overlay-wrapper .close:hover {
+  background-color: #aaaaaa;
+}
+
+#simple-overlay table td#simple-overlay-content-container #simple-overlay-wrapper, #simple-overlay-title {
+  background-image: url("/assets/ui-bg_flat_30_cccccc_40x100.png");
+  border-radius: 5px 5px 0 0;
+  font-weight: bold;
+  padding: 10px;
+}
+
+#simple-overlay table td#simple-overlay-content-container #simple-overlay-wrapper, #simple-overlay-content {
+  background-color: #FFFFFF;
+  padding: 10px;
+  width: 510px;
+  border-radius: 5px;
+}

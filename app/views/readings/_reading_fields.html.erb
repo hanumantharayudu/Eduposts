@@ -1,0 +1,9 @@
+<div class="faq_box">
+  <%= f.text_field :title, :placeholder => "Title", :class => "faqs_box single_line for_readings" %>
+  <div class="btn paperclip" id="file_browse_wrapper"><%= image_tag("/assets/paperclip.png", :width => '15px;', :height => '20px;')%>
+    <%= f.file_field :read_document, :id => "file_browse" %>
+  </div>
+  <%= f.text_area :reading, :rows => 3, :placeholder => "Reading", :class => "faqs_box for_readings" %>
+  <div class="delete_link"><%= link_to_remove_fields "delete", f %></div>
+  <br/>
+</div>

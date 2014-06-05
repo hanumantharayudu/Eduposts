@@ -1,0 +1,46 @@
+<div class="main">
+  <div class="row">
+    <div class="span10">
+      <div class="sign_up_content">
+        <h2><b>Join Eduposts today.</b></h2>
+        <%= form_for(@teacher, :url => teacher_path(@teacher), :html => { :method => :put }) do |f| %>
+          <%= f.hidden_field :reset_password_token %>
+          <div class="controls">
+            <%= f.email_field :email, :class => 'span5', :id => "inputEmail", :placeholder => "Email", :readonly => true %>
+            <%= validation_error(@teacher.errors["email"]) %>
+          </div>
+          <div class="controls">
+            <%= f.text_field :username,:value => @teacher.username.blank? ? "" : @teacher.username.split('@').last, :class => 'span5', :placeholder => "Username",:onBlur => "get_username(this)" %>
+            <br /><em id="username_error" style="color: #CC3333; text-transform: none;font-family: Calibri-Bold;font-size:12px;"></em>
+            <%= validation_error(@teacher.errors["username"]) %>
+          </div>
+          <div class="controls">
+            <%= f.password_field :password, :class => 'span5', :id => "inputPassword", :placeholder => "Password" %>
+            <%= validation_error(@teacher.errors["password"]) %>
+          </div>
+          <div class="controls">
+            <%= f.password_field :password_confirmation, :class => 'span5', :id => "inputPassword", :placeholder => "Confirm Password" %>
+            <%= validation_error(@teacher.errors["password_confirmation"]) %>
+          </div>
+          <div class="controls">
+            <%=f.check_box :terms_of_service %>I agree terms and conditions
+            <%= validation_error(@teacher.errors["terms_of_service"]) %>
+          </div>
+          <button type="submit" class="btn btn-warning span5">Create My Account</button>
+        <% end %>
+      </div>
+    </div><!--/span5-->
+  </div>
+</div>
+<script>
+  $(document).submit(function(){
+    var u_name = $("#user_username").val().toLowerCase()
+    $("#user_username").val('@'+u_name);
+  });
+</script>
+<style>
+  .span10 {
+    margin-left: 310px;
+    width: 780px;
+  }
+</style>

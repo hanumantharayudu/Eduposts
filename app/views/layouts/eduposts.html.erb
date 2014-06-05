@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+    <title>Eduposts</title>
+    <link rel="shortcut icon" href="/assets/favicon.png" />
+    <%= stylesheet_link_tag "/assets/bootstrap_files/bootstrap","application","/assets/css/radmin-plugins","simple-overlay", "jquery.notifyBar","/assets/bootstrap_files/bootstrap-responsive","jquery.simplyscroll", "login" %>
+    <%= javascript_include_tag "application", "jquery.notifyBar","jquery.simplyscroll","/assets/scripts/jquery.cloneposition.js","/assets/scripts/theme.js","/assets/scripts/flot/jquery.flot.js","/assets/scripts/charts.js","jquery.remotipart","/assets/bootstrap_files/bootstrap-transition.js","/assets/bootstrap_files/bootstrap-alert.js","/assets/bootstrap_files/bootstrap-modal.js","/assets/bootstrap_files/bootstrap-dropdown.js","/assets/bootstrap_files/bootstrap-scrollspy.js","/assets/bootstrap_files/bootstrap-tab.js","/assets/bootstrap_files/bootstrap-tooltip.js","/assets/bootstrap_files/bootstrap-popover.js","/assets/bootstrap_files/bootstrap-button.js","/assets/bootstrap_files/bootstrap-collapse.js","/assets/bootstrap_files/bootstrap-carousel.js","/assets/bootstrap_files/bootstrap-typeahead.js" %>
+    <%= csrf_meta_tags %>
+    <% ['notice', 'error', 'warning'].each do |f|%>
+      <% if flash[f.to_sym]%>
+        <script type="text/javascript" >
+          jQuery(function () {
+            jQuery.notifyBar({
+              cls: "<%= f %>",
+              html: "<%=  flash[f.to_sym] %>",
+              delay: 3000,
+              animationSpeed: "normal"
+            });
+          });
+        </script>
+      <%end%>
+    <%end%>
+    <style>
+      body { padding-top: 60px; }
+    </style>
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <!--<a class="brand" href="index.html"><img src="images/logo.png" height="85px" width="115px"/></a>-->
+          <img class="paper_plane" src="/assets/paper_plane_icon.png" height="50px" width="50px"/>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <% if params[:controller] == 'profiles' && params[:action] == 'index'  %>
+                <li class="active"><%= link_to image_tag("/assets/home_icon_blue.png", :class => "nav_icon", :height => "30px", :width => "20px")+'Home',profiles_path(:school_name => current_user.school_admin.school)  %></li>
+              <% else %>
+                <li><%= link_to image_tag("/assets/home_icon_default.png", :class => "nav_icon", :height => "30px", :width => "20px")+'Home', profiles_path(:school_name => current_user.school_admin.school)  %></li>
+              <% end %>
+              <% if params[:controller] == 'notifications' && (params[:action] == 'index' || params[:action] == 'posts') %>
+                <li class="active"><%= link_to image_tag("/assets@_blue.png", :class => "nav_icon", :height => "30px", :width => "20px")+'Inbox', notifications_path(:school_name => current_user.school_admin.school) %></li>
+              <% else %>
+                <li><%= link_to image_tag("/assets/@_grey.png", :class => "nav_icon", :height => "30px", :width => "20px")+'Inbox', notifications_path(:school_name => current_user.school_admin.school)  %></li>
+              <% end %>
+              <% if params[:controller] == "profiles" && (params[:action] == 'show' || params[:action] == 'edit' || params[:action] == 'edit_password' || params[:action] == 'update' || params[:action] == 'update_password') %>
+                <li class="active"><%= link_to image_tag("/assets/my_tweets_icon_blue.png", :class => "nav_icon", :height => "30px", :width => "20px")+"Me", profile_path(:school_name => current_user.school_admin.school,:id =>current_user.id) %></li>
+              <% else %>
+                <li><%= link_to image_tag("/assets/my_tweets_icon_default.png", :class => "nav_icon", :height => "30px", :width => "20px")+"Me", profile_path(:school_name => current_user.school_admin.school,:id =>current_user.id) %></li>
+              <% end %>
+              <% if params[:controller] == 'classes' && (params[:action] == 'show' || params[:action] == 'edit' || params[:action] == 'roster' || params[:action] == 'invite_students' || params[:action] == 'faqs' || params[:action] == 'importent_links' || params[:action] == 'readings')%>
+                <li class="active"><%= link_to image_tag("/assets/class_blue.png", :class => "nav_icon", :height => "20px", :width => "20px")+"Class", class_path(:school_name => current_user.school_admin.school,:id =>current_user.id) %></li>
+              <% else %>
+                <li><%= link_to image_tag("/assets/class_grey.png", :class => "nav_icon", :height => "20px", :width => "20px")+"Class", class_path(:school_name => current_user.school_admin.school,:id =>current_user.id) %></li>
+              <% end %>
+            </ul>
+
+            <ul class="nav pull-right">
+              <div class="btn-group">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <%= image_tag("/assets/settings_default.png", :heigt => "30px", :width => "20px") %>
+                  <span class="caret options"></span>
+                </a>
+                <%= link_to_function image_tag("/assets/new_post_icon.png", :heigt => "15px", :width => "15px", :title => "Add New Post"), "new_compose('#{current_user.school_admin.school}')", :remote => true, :class => "btn btn-primary" %>
+                <ul class="dropdown-menu">
+                  <li><%= link_to "My Profile", profile_path(:school_name => current_user.school_admin.school,:id =>current_user.id)%></li>
+                  <li><%= link_to "My Posts", user_posts_path(current_user)%></li>
+                  <li><%= link_to "Edit Profile", edit_profile_path(:school_name => current_user.school_admin.school,:id =>current_user.id) %></li>
+                  <% if current_user.role == 'teacher' %>
+                    <li><%= link_to "Edit Class", edit_class_path(:school_name => current_user.school_admin.school,:id =>current_user.id) %></li>
+                  <% end %>
+                  <li><%= link_to "Sign out", destroy_user_session_path, :method => 'delete' %></li>
+                </ul>
+              </div>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div id='ajax_loader_big_div' style='z-index:1000000;display: none;'>
+      <img alt=""  src="/assets/bigger_spinner.gif" style="width:32px;height:32px;z-index:1000000;"/>
+    </div>
+    <div class="container">
+      <div class="row-fluid">
+        <%= yield %>
+      </div>
+    </div>
+
+  <footer>
+  </footer>
+  <div id='overlay' style='filter:alpha(opacity=50);'></div>
+  <div align='center' id='popup_box'>
+    <div style='float: right; margin-top: -40px;margin-right:-40px'>
+    </div>
+    <div id='popup_body' style='float:right'></div>
+  </div>
+  <div align='center' id='popup_box1'>
+    <div style='float: right; margin-top: -40px;margin-right:-40px'>
+    </div>
+    <div id='popup_body1' style='float:right'></div>
+  </div>
+  <%= render :partial => 'layouts/google_analytics' if Rails.env == 'production' %>
+</body>
+</html>
+<script>
+  $('.search-query').change(function() {
+    $('form').submit();
+  });
+</script>

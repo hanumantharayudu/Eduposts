@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <title>Eduposts</title>
+    <link rel="shortcut icon" href="/assets/favicon.ico" />
+    <link href="/assets/bootstrap_files/bootstrap.css" rel="stylesheet">
+    <%= javascript_include_tag "application", "jquery.notifyBar","jquery.simplyscroll","jquery.remotipart","/assets/bootstrap_files/bootstrap-transition.js","/assets/bootstrap_files/bootstrap-alert.js","/assets/bootstrap_files/bootstrap-modal.js","/assets/bootstrap_files/bootstrap-dropdown.js","/assets/bootstrap_files/bootstrap-scrollspy.js","/assets/bootstrap_files/bootstrap-tab.js","/assets/bootstrap_files/bootstrap-tooltip.js","/assets/bootstrap_files/bootstrap-popover.js","/assets/bootstrap_files/bootstrap-button.js","/assets/bootstrap_files/bootstrap-collapse.js","/assets/bootstrap_files/bootstrap-carousel.js","/assets/bootstrap_files/bootstrap-typeahead.js" %>
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/bootstrap_files/bootstrap-responsive.css" rel="stylesheet">
+  </head>
+
+  <body class="blue_background">
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <!--<a class="brand" href="index.html"><img src="images/logo.png" height="85px" width="115px"/></a>-->
+          <img class="paper_plane" src="/assets/paper_plane_icon.png" height="50px" width="50px"/>
+          <div class="nav-collapse collapse">
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="row-fluid">
+
+        <div class="span4">
+
+          <div class="add_character_box">
+            <h3 class="add_character_title">Add character</h3>
+            <div class="add_character_text">Upload a photo and describe yourself.</div>
+            <div class="add_character_darkening"></div>
+          </div>
+
+          <div class="add_character_profile_box">
+            <%= form_for @user, :url => update_new_user2_home_path(@user) do |f| %>
+              <% if @user.role == 'student' %>
+                <%= @user.avatar.present? ? image_tag(@user.avatar.url(:original),:height => '100px', :width => '100px' , :id => 'user_photo', :class => "profile_pic img-rounded") : image_tag("/assets/profile_pic_student.png",:height => '100px', :width => '100px', :id => 'user_photo', :class => "profile_pic img-rounded") %>
+              <% else %>
+                <%= @user.avatar.present? ? image_tag(@user.avatar.url(:original),:height => '100px', :width => '100px', :id => 'user_photo', :class => "profile_pic img-rounded") : image_tag("/assets/profile_pic_instructor.png",:height => '100px', :width => '100px', :id => 'user_photo', :class => "profile_pic img-rounded") %>
+              <% end %>
+              <img id="PreviewImage" src="" alt="" style="width: 100px;height: 100px;display: none;" class="profile_pic img-rounded"  />
+              <div class="btn add_character_upload_image">Upload image
+                <%= f.file_field :avatar, :id => "realupload11", :onChange => 'readURL(this)', :style => 'margin-left: -119px;margin-top: -5px;width: 116px;'%>
+              </div>
+              <div class="image_size_text">Maximum size of 700K, JPG, GIF,<br/>PNG.</div>
+              <h4 class="bio_title">Bio</h4>
+              <div class="bio_text_count"><strong>0 / 160</strong></div>
+              <%= f.text_area :bio, :rows => 3, :class => "bio_text_area" %>
+              <div class="skip_button">
+                <%= link_to "Skip &#187;".html_safe, profiles_path(:school_name => current_user.school_admin.school) %>
+              </div>
+              <div style="float: right;left: -10px;position: relative;">
+                <%= f.submit "Save".html_safe %>
+              </div>
+            <% end %>
+          </div>
+          <script>
+            function readURL(input) {
+              if (input.files && input.files[0]) {//Check if input has files.
+                var reader = new FileReader();//Initialize FileReader.
+
+                reader.onload = function (e) {
+                  $('#PreviewImage').attr('src', e.target.result);
+                  $("#user_photo").hide();
+                  $("#PreviewImage").show();
+                };
+                reader.readAsDataURL(input.files[0]);
+              }
+            }
+          </script>
+        </div>
+
+        <div class="span8">
+          <div class="box_r1_ep">
+            <h2 class="posts_title">Preview</h2>
+
+            <div class="posts_box first">
+              <%= image_tag("/assets/alberteinstein.jpg", :height => '50px;', :width => '50px;',:class =>"profile_pic img-rounded fifty_by_fifty" ) %>
+              <div class="post">
+                <h5 class="post_name">Albert Einstein</h5>
+                <div class="post_at">&nbsp@Einstein</div>
+                <div class="post_time">5m</div>
+                <div class="post_text">The important thing is not to stop questioning. Curiosity has its own reason for existence.</div>
+                <div class="action_row">
+                  <%= link_to image_tag("/assets/discussion.png", :height => '10px;', :width => '10px;')+"View Conversation", "" %>
+                  &nbsp&nbsp
+                  <%= link_to image_tag("/assets/reply_icon.png", :height => '10px;', :width => '10px;')+"Reply", "" %>
+                  &nbsp&nbsp
+                  <%= link_to image_tag("/assets/favorite_icon.png", :height => '10px;', :width => '10px;')+"Favorite", "" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="posts_box">
+              <%= image_tag("/assets/henryford.jpg", :height => '50px;', :width => '50px;',:class =>"profile_pic img-rounded fifty_by_fifty" ) %>
+              <div class="post">
+                <h5 class="post_name">Henry Ford</h5>
+                <div class="post_at">&nbsp@HenryFord</div>
+                <div class="post_time">5m</div>
+                <div class="post_text">Thinking is the hardest work there is, which is probably the reason so few engage in it. </div>
+                <div class="action_row">
+                  <%= link_to image_tag("/assets/discussion.png", :height => '10px;', :width => '10px;')+"View Conversation", "" %>
+                  &nbsp&nbsp
+                  <%= link_to image_tag("/assets/reply_icon.png", :height => '10px;', :width => '10px;')+"Reply", "" %>
+                  &nbsp&nbsp
+                  <%= link_to image_tag("/assets/favorite_icon.png", :height => '10px;', :width => '10px;')+"Favorite", "" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="posts_box">
+              <%= image_tag("/assets/miltonfreedmon.png", :height => '50px;', :width => '50px;',:class =>"profile_pic img-rounded fifty_by_fifty" ) %>
+              <div class="post">
+                <h5 class="post_name">Milton Freedmon</h5>
+                <div class="post_at">&nbsp@Freedmon</div>
+                <div class="post_time">5m</div>
+                <div class="post_text">The world runs on individuals pursuing their self interests. The great achievements of civilization have not come from government bureaus. <a href="#">@Einstein</a> didn't construct his theory under order from a bureaucrat.</div>
+                <div class="action_row">
+                  <%= link_to image_tag("/assets/discussion.png", :height => '10px;', :width => '10px;')+"View Conversation", "" %>
+                  &nbsp&nbsp
+                  <%= link_to image_tag("/assets/reply_icon.png", :height => '10px;', :width => '10px;')+"Reply", "" %>
+                  &nbsp&nbsp
+                  <%= link_to image_tag("/assets/favorite_icon.png", :height => '10px;', :width => '10px;')+"Favorite", "" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="posts_box">
+              <%= image_tag("/assets/nelsonmandela.jpg", :height => '50px;', :width => '50px;',:class =>"profile_pic img-rounded fifty_by_fifty" ) %>
+              <div class="post">
+                <h5 class="post_name">Nelson Mandela</h5>
+                <div class="post_at">&nbsp@Mandela</div>
+                <div class="post_time">5m</div>
+                <div class="post_text">Education is the most powerful weapon which you can use to change the world.</div>
+                <div class="action_row">
+                  <%= link_to image_tag("/assets/discussion.png", :height => '10px;', :width => '10px;')+"View Conversation", "" %>
+                  &nbsp&nbsp
+                  <%= link_to image_tag("/assets/reply_icon.png", :height => '10px;', :width => '10px;')+"Reply", "" %>
+                  &nbsp&nbsp
+                  <%= link_to image_tag("/assets/favorite_icon.png", :height => '10px;', :width => '10px;')+"Favorite", "" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="posts_box">
+              <%= image_tag("/assets/thomasedison.jpg", :height => '50px;', :width => '50px;',:class =>"profile_pic img-rounded fifty_by_fifty" ) %>
+              <div class="post">
+                <h5 class="post_name">Thomas Edison</h5>
+                <div class="post_at">&nbsp@Edison</div>
+                <div class="post_time">5m</div>
+                <div class="post_text">Genius is one percent inspiration and ninety-nine percent perspiration.</div>
+                <div class="action_row">
+                  <%= link_to image_tag("/assets/discussion.png", :height => '10px;', :width => '10px;')+"View Conversation", "" %>
+                  &nbsp&nbsp
+                  <%= link_to image_tag("/assets/reply_icon.png", :height => '10px;', :width => '10px;')+"Reply", "" %>
+                  &nbsp&nbsp
+                  <%= link_to image_tag("/assets/favorite_icon.png", :height => '10px;', :width => '10px;')+"Favorite", "" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="posts_box">
+              <%= image_tag("/assets/stephenhawkings.jpg", :height => '50px;', :width => '50px;',:class =>"profile_pic img-rounded fifty_by_fifty" ) %>
+              <div class="post">
+                <h5 class="post_name">Stephen Hawkings</h5>
+                <div class="post_at">&nbsp@Hawkings</div>
+                <div class="post_time">5m</div>
+                <div class="post_text">It is no good getting furious if you get stuck. What I do is keep thinking about the problem but work on something else. Sometimes it is years before I see the way forward.</div>
+                <div class="action_row">
+                  <%= link_to image_tag("/assets/discussion.png", :height => '10px;', :width => '10px;')+"View Conversation", "" %>
+                  &nbsp&nbsp
+                  <%= link_to image_tag("/assets/reply_icon.png", :height => '10px;', :width => '10px;')+"Reply", "" %>
+                  &nbsp&nbsp
+                  <%= link_to image_tag("/assets/favorite_icon.png", :height => '10px;', :width => '10px;')+"Favorite", "" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="posts_box">
+              <%= image_tag("/assets/billgates.jpg", :height => '50px;', :width => '50px;',:class =>"profile_pic img-rounded fifty_by_fifty" ) %>
+              <div class="post">
+                <h5 class="post_name">Bill Gates</h5>
+                <div class="post_at">&nbsp@Gates</div>
+                <div class="post_time">5m</div>
+                <div class="post_text">People always fear change. People feared electricity when it was invented, didn't they? People feared coal, they feared gas-powered engines... There will always be ignorance, and ignorance leads to fear.</div>
+                <div class="action_row">
+                  <%= link_to image_tag("/assets/discussion.png", :height => '10px;', :width => '10px;')+"View Conversation", "" %>
+                  &nbsp&nbsp
+                  <%= link_to image_tag("/assets/reply_icon.png", :height => '10px;', :width => '10px;')+"Reply", "" %>
+                  &nbsp&nbsp
+                  <%= link_to image_tag("/assets/favorite_icon.png", :height => '10px;', :width => '10px;')+"Favorite", "" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<style>
+  .posts_box {
+    border-bottom: 1px solid #E8E8E8;
+    height: 100px;
+  }
+
+  #realupload11{
+    opacity: 0;
+    width: 29px;
+    opacity:0.0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  }
+</style>

@@ -1,0 +1,66 @@
+<div class="span4">
+  <div class="box_l1_hp">
+    <% if current_user.role == 'student' %>
+      <%= current_user.avatar.present? ? image_tag(current_user.avatar.url(:original),:width => '50px;',:height => '50px;' , :class => "profile_pic img-rounded fifty_by_fifty") : image_tag("/assets/profile_pic_student.png",:width => '50px;',:height => '50px;' , :class => "profile_pic img-rounded fifty_by_fifty")%>
+    <% else %>
+      <%= current_user.avatar.present? ? image_tag(current_user.avatar.url(:original),:width => '50px;',:height => '50px;' , :class => "profile_pic img-rounded fifty_by_fifty") : image_tag("/assets/profile_pic_instructor.png",:width => '50px;',:height => '50px;' , :class => "profile_pic img-rounded fifty_by_fifty")%>
+    <% end %>
+    <h3 class="profile_name"><%= current_user.fullname %></h3>
+    <%= link_to "View my profile page", profile_path(:school_name => current_user.school_admin.school,:id =>current_user.id), :class => "view_my_profile_page" %>
+    <div class="posts_count">
+      <%= current_user.tweets.where("reply IS NULL").count %>&nbsp;Posts
+    </div>
+    <div class="replies_count">
+      <%= current_user.tweets.where("reply IS NOT NULL").count %>&nbsp;Replies
+    </div>
+
+    <%= form_for @post, :url =>compose_message_profiles_path(:school_name => current_user.school_admin.school),:html => {:multipart => true,:method => "POST"},:remote => true do |f| %>
+      <br /><%= f.text_area :body,:class=>"compose_new_post",:rows => 1,:style => 'margin-left: 12px;margin-top: 50px;resize:none;',:placeholder=>"Compose new Post...",:id => 'area' %>
+      <div class="input-container btn attachment" id="file_browse_wrapper1"><%= image_tag("/assets/paperclip.png", :width => '15px;', :height => '20px;')%>
+        <%= f.file_field :document, :id => "file_browse", :onChange => 'readURL(this)' %>
+      </div>
+      <img id="PreviewImage" style="height: 16px;left: 13px;position: relative;top: 6px;width: 20px;display: none;"  />
+      <%= f.submit 'Post', :id => "post",:class =>'btn', :style => 'display: none;float:right;left: -12px;position: relative;'%>
+    <% end %>
+  </div>
+  <% if current_user.role == 'student' %>
+    <div class="box_l2_hp points_box">
+      <h5 class="points_title">Points</h5>
+      <div class="progress progress-striped active">
+        <div class="bar" style="width: 80%;">80&nbsp</div>
+      </div>
+      <div class="badges_title">Badges &#183; Stats</div>
+    </div>
+  <% end %>
+
+
+  <%= render :partial => 'profiles/links' %>
+</div>
+
+<div class="span8" id="posts">
+  <h2 class="posts_title">
+    Posts
+    <span id="success" style="color: green;display: none;float: right;font-size: 15px;position: relative;top: -5px;">Successfully deleted this post.</span>
+  </h2>
+  <div class="posts_box first">
+    <%= render :partial => 'index' %>
+    <input type="hidden" value="inbox" id="post_type" />
+  </div>
+</div>
+<script>
+  jQuery(function() {
+    jQuery(window).scroll(
+    function() {
+      if (($(window).scrollTop() == $(document).height() - $(window).height()) && jQuery('#posts_page').val() > 0)
+      {
+        if (jQuery("#post_type").val() == 'inbox') {
+          more_posts('<%= current_user.school_admin.school%>',jQuery('#posts_page').val())
+        }
+      }
+    });
+  });
+
+  $(document).ready(function(){
+    $("#area").val("")
+  });
+</script>

@@ -1,0 +1,126 @@
+<div class="span4">
+
+  <div class="box_l1_ep">
+    <% if @user.role == 'student' %>
+      <%= @user.class_photo.present? ? image_tag(@user.class_photo.url(:original),:height => '50px', :width => '50px' , :class => "profile_pic img-rounded") : image_tag("/assets/profile_pic_student.png",:height => '50px', :width => '50px' , :class => "profile_pic img-rounded") %>
+    <% else %>
+      <%= @user.class_photo.present? ? image_tag(@user.class_photo.url(:original),:height => '50px', :width => '50px' , :class => "profile_pic img-rounded") : image_tag("/assets/profile_pic_instructor.png",:height => '50px', :width => '50px' , :class => "profile_pic img-rounded") %>
+    <% end %>
+    <h3 class="profile_name"><%= @user.class_name.present? ? @user.class_name : "Class" %></h3>
+    <%= link_to "View my class page", class_path(:school_name => current_user.school_admin.school,:id =>@user.id), :class => "view_my_profile_page" %>
+  </div>
+
+
+  <div class="box_l1_hp">
+    <%= link_to "<button class='side_nav_button profile active_button' type=button'>Class<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe, edit_class_path(:school_name => current_user.school_admin.school,:id =>@user.id) %>
+    <%= link_to "<button class='side_nav_button posts for_notifications' type=button'>Roster<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe, roster_class_path(:school_name => current_user.school_admin.school,:id =>@user.id) %>
+    <%= link_to "<button class='side_nav_button posts for_notifications' type=button'>Invite Students<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe, invite_students_class_path(:school_name => current_user.school_admin.school,:id =>@user.id) %>
+    <%= link_to "<button class='side_nav_button posts for_notifications' type=button'>FAQ's<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe, class_faqs_path(:school_name => current_user.school_admin.school,:class_id =>@user.id) %>
+    <%= link_to "<button class='side_nav_button posts for_notifications' type=button'>Readings<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe, class_readings_path(:school_name => current_user.school_admin.school,:class_id =>@user.id) %>
+    <%= link_to "<button class='side_nav_button password' type=button'>Important Links<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe, class_importent_links_path(:school_name => current_user.school_admin.school,:class_id =>@user.id) %>
+  </div>
+
+  <%= render :partial => 'profiles/links' %>
+</div>
+
+<div class="span8">
+  <div class="box_r1_ep">
+    <h2 class="posts_title">Class</h2>
+    <div class="profile_note">This information appears on your public profile, search results, and beyond.</div>
+    <div class="edit_profile_right_column">
+      <%= form_for(@user, :url => class_path(@user)) do |f| %>
+        <table width="100%" cellpadding="20%">
+          <tr>
+            <td><%= f.label :avatar, "Photo" %></td>
+            <td>
+              <div style="width:100%;">
+                <div style="width: 20%;float: left;">
+                  <% if @user.role == 'student' %>
+                    <%= @user.class_photo.present? ? image_tag(@user.class_photo.url(:original), :id => 'user_photo', :class => "profile_pic img-rounded edit_profile one_hundred") : image_tag("/assets/profile_pic_student.png", :id => 'user_photo', :class => "profile_pic img-rounded edit_profile one_hundred") %>
+                  <% else %>
+                    <%= @user.class_photo.present? ? image_tag(@user.class_photo.url(:original), :id => 'user_photo', :class => "profile_pic img-rounded edit_profile one_hundred") : image_tag("/assets/profile_pic_instructor.png", :id => 'user_photo', :class => "profile_pic img-rounded edit_profile one_hundred") %>
+                  <% end %>
+                  <img id="PreviewImage1" src="" alt="" style="display: none;"/>
+                </div>
+                <div style="width:70%;float: left;">
+                  <div class="input-container btn" style=" line-height: 26px;padding-bottom: 5px;    padding-left: 10px;    padding-right: 10px;    padding-top: 5px;">Change photo<span class="caret"></span>
+                  </div>
+                  <%= f.file_field :class_photo, :id => "realupload11", :onChange => 'readURL(this)', :style => 'left: -104px;    position: relative;    width: 0;'%>
+                  <br/>
+                  <div class="change_photo_box_text">
+                    This photo is your identity on Eduposts and appears with your posts.Need help? <a href=#">Learn More</a>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td><%= validation_error(@user.errors["avatar"]) %></td>
+          </tr>
+
+          <tr>
+            <td><%= f.label :class_name, "Classname" %></td>
+            <td><%= f.text_field :class_name, :placeholder => "Math or Chemistry" %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :email, "Instructor's Email" %></td>
+            <td><%= f.email_field :email, :readonly => true %></td>
+            <td> <%= validation_error(@user.errors["email"]) %></td>
+          </tr>
+          <tr>
+            <td> <%= f.label :syllabus, "Syllabus" %></td>
+            <td>
+              <div class="input-container btn attachment" id="file_browse_wrapper" style="left: -20px;margin-top: 0px;position: relative;"><%= image_tag("/assets/paperclip.png", :width => '15px;', :height => '20px;')%>
+                <%= f.file_field :syllabus_link, :id => "file_browse", :onChange => 'readURL1(this)' %>
+              </div>
+              <img id="PreviewImage2" style="height: 16px;left: -12px;position: relative;top: -3px;width: 20px;"  />
+              <span style="left: -8px;position: relative;top: -5px;width: 120px;">or</span>
+              <%= f.text_field :syllabus, :placeholder => "Enter Link Here" %></td>
+          </tr>
+          <script>
+            $('#file_browse').click(function(){
+              $('#user_syllabus').val(' ');
+            });
+
+            $('#user_syllabus').click(function(){
+              $('input[id=file_browse]').val('');
+              $('#PreviewImage2').hide();
+            });
+          </script>
+          <tr>
+            <td> <%= f.label :school_admin_id, "School" %></td>
+            <td> <%= f.text_field :school, :placeholder => @user.school_admin.school_name, :readonly => true %></td>
+          </tr>
+          <tr>
+            <td valign="top"><%= f.label :class_description, "Description" %></td>
+            <td><%= f.text_area :class_description, :rows => 3,:style => 'resize:none;' %></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><button type="submit" class="btn btn-info">Save Changes</button></td>
+          </tr>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</div>
+<style>
+  .form_error{
+    left: -36px;
+    position: relative;
+    top: -6px;
+    width: 317px;
+  }
+</style>
+<script>
+  function readURL(input) {
+    if (input.files && input.files[0]) {//Check if input has files.
+      var reader = new FileReader();//Initialize FileReader.
+
+      reader.onload = function (e) {
+        $('#PreviewImage1').attr('src', e.target.result);
+        $('#PreviewImage1').show();
+        $("#user_photo").hide();
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>

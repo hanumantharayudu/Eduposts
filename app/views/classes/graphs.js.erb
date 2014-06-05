@@ -1,0 +1,14 @@
+$('#chart_<%= @user.id %>').html('<%= escape_javascript render :partial => 'graphs'%>');
+<% if params[:point] == '1d' %>
+  $("#1d_<%= @user.id %>").css('color','blue');
+<% elsif params[:point] == '5d' %>
+  $("#5d_<%= @user.id %>").css('color','blue');
+<% elsif params[:point] == '1m' %>
+  $("#1m_<%= @user.id %>").css('color','blue');
+<% elsif params[:point] == '2m' %>
+  $("#2m_<%= @user.id %>").css('color','blue');
+<% elsif params[:point] == '3m' %>
+  $("#3m_<%= @user.id %>").css('color','blue');
+<% elsif params[:point] == 'all' %>
+  $("#all_<%= @user.id %>").css('color','blue');
+<% end %>

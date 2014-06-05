@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin Login</title>
+    <link rel="shortcut icon" href="/assets/favicon.ico" />
+  </head>
+  <body class="account register" style="background:#232323;">
+    <div align="center" id="page" style="width: 635px;height: 347px;">
+      <div id="session_content" style="padding: 4px;">
+        <div style="background-color: #EEEEEE;width: 523px;height: 213px;margin-top:12px;">
+          <% flash.each do |key, value| %>
+            <div class="flash <%= key %>" style="color :red;position: absolute;margin: 12px 173px;"> Invalid Username or password. </div>
+          <% end %>
+          <div class="flash" style="color :#2A6C86;float: left;margin-top:15px;margin-left:12px;"><%= image_tag("/assets/admin panel txt.png",:width => "135",:height => "14")%></div><br /><br />
+          <%= form_for resource, :as => resource_name, :url => admin_session_path ,:remote => true do |f| %>
+            <table cellspacing="0px" cellpadding="4px" width="88%" style="margin-left:37px;">
+              <tr>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td valign="top"><%= f.label :email, "Email:" %></td>
+                <td><%= f.email_field :email  %></td>
+              </tr>
+              <tr>
+                <td valign="top"><%= f.label :password,"Password:" %></td>
+                <td><%= f.password_field :password %></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" value="submit" style="text-decoration:none;border:none;background: none;"><%= image_tag('/assets/enter button.png') %></button></td>
+              </tr>
+            </table>
+          <% end %>
+        </div><br />
+      </div>
+      <div style="clear: both;">&nbsp;</div>
+    </div>
+    <div style="max-width: 200px;" id="tiptip_holder"><div id="tiptip_arrow"><div id="tiptip_arrow_inner"></div></div><div id="tiptip_content"></div></div></body>
+</html>
+<style>
+  input[type=text], input[type=password], input[type=email], textarea {
+    background-image: url("/assets/txt bar.png");
+    color: rgb(65, 65, 65);
+    font-size: 14px;
+    height: 23px;
+    width: 257px;
+    border: none;
+  }
+
+  label {
+    color: #414141;
+    float: left;
+    font-family: Arial,sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0px 30px 0;
+  }
+
+  #page {
+    margin: 116px auto;
+  }
+
+</style>

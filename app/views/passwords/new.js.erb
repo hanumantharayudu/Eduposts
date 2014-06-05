@@ -1,0 +1,5 @@
+<% if params[:role] == 'student' %>
+  $('.student_box').animate({'height': '20px'},function(){$('.student_box').html('<%= escape_javascript render :partial => 'devise/passwords/new' %>');});
+<% else %>
+  $(".instructor_box").animate({'height': '20px'},function(){$(".instructor_box").html('<%= escape_javascript render :partial => 'devise/passwords/new' %>');});
+<% end %>

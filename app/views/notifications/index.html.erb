@@ -1,0 +1,37 @@
+<div class="row-fluid">
+
+  <div class="span4">
+
+    <div class="box_l1_hp side_nav_box">
+      <%= link_to "<button class='side_nav_button replies for_notifications active_button' type=button'>Mentions<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe, notifications_path(:school_name =>current_user.school_admin.school) %>
+      <%= link_to "<button class='side_nav_button announcements' type=button'>Announcements<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe, announcements_notification_path(:school_name =>current_user.school_admin.school,:id =>current_user.id,:post => "announcement"), :remote => true %>
+      <%= link_to "<button class='side_nav_button assignments' type=button'>Assignments<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe, announcements_notification_path(:school_name =>current_user.school_admin.school,:id =>current_user.id,:post => "assignment"), :remote => true %>
+    </div>
+
+    <%= render :partial => 'profiles/links' %>
+
+  </div>
+
+  <div class="span8" id="posts">
+    <h2 class="posts_title">
+      Mentions
+      <span id="success" style="color: green;display: none;float: right;font-size: 15px;position: relative;top: 30px;">Successfully deleted this post.</span>
+    </h2>
+    <%= render :partial => 'index' %>
+    <input type="hidden" value="show" id="post_type" />
+    <input type="hidden" value="<%= current_user.school_admin.id %>" id="school_post_type" />
+  </div>
+</div>
+<script>
+  jQuery(function() {
+    jQuery(window).scroll(
+    function() {
+      if (($(window).scrollTop() == $(document).height() - $(window).height()) && jQuery('#posts_page').val() > 0)
+      {
+        if (jQuery("#post_type").val() == 'show') {
+          notification_replies(jQuery('#school_post_type').val(),jQuery('#posts_page').val())
+        }
+      }
+    });
+  });
+</script>

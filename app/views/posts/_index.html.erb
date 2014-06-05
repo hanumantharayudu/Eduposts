@@ -1,0 +1,57 @@
+<% if @posts.present? %>
+  <% for post in @posts.compact %>
+    <div class="posts_box" id="post_<%= post.id %>">
+      <div style="float:left;clear:both;"><%= post_picture(post) %></div>
+      <div class="post" style="width: 1105px;">
+        <h5 class="post_name"><%= link_to post.user.fullname, profile_path(:school_name => current_user.school_admin.school,:id =>post.user.id), :style => 'color:black;font-weight:bold;' %></h5>
+        <div class="post_at">&nbsp<%= post.user.username %></div>
+        <div class="post_time"><%= time_ago_in_words(post.created_at) %></div>
+        <div class="post_text">
+          <%= render :partial => '/profiles/post_text',:locals => {:post => post} %>
+        </div>
+        <div class="action_row">
+          <% if post.body > post.body.slice(0..300) %>
+            <%= link_to_function "expand", "expand(#{post.id})", :id => "expand_#{post.id}" %>
+            <%= link_to_function "Hide", "unexpand(#{post.id})", :id => "unexpand_#{post.id}", :style => 'display:none;' %>
+            &nbsp&nbsp
+          <% end %>
+          &nbsp&nbsp
+          <%= link_to_function image_tag("/assets/reply_icon.png", :width => '10px', :height => '10px')+'Reply', "reply(#{current_user.id}, #{post.id})" %>
+          &nbsp&nbsp
+          <% if post.user_id == current_user.id  %>
+            <span id="delete_<%= post.id %>">
+              <%= link_to image_tag("/assets/delete_post.png", :width => '10px', :height => '10px')+'Delete', user_post_path(current_user,post), :method => :delete, :remote => true,:confirm => "Are you Sure..", :class => 'button medium red'%>
+            </span>
+          <% end %>
+          &nbsp&nbsp
+          <% if !post.favorite.present? || !current_user.favorite_for(post).present? %>
+            <%= link_to image_tag("/assets/favorite_icon.png", :width => '10px', :height => '10px')+'Favorite',favourite_user_posts_path(post.id),:remote => true,:method => 'post' %>
+          <% elsif post.favorite.status == true %>
+            <%= link_to image_tag("/assets/favorite_icon.png", :width => '10px', :height => '10px')+'Favorited',update_favourite_user_posts_path(post.id),:remote => true,:method => 'put', :style => 'color: #FF9B00;' %>
+          <%elsif post.favorite.status == false%>
+            <%= link_to image_tag("/assets/favorite_icon.png", :width => '10px', :height => '10px')+'Favorite',update_mark_favourite_user_posts_path(post.id),:remote => true,:method => 'put' %>
+          <% end %>
+          <div id="expa_<%= post.id %>"  style="display:none;">
+            <%= post.body %>
+          </div>
+          <div id="bid-info_<%= post.id %>"></div>
+          <script>
+            $("#expand_<%= post.id %>").click(function(){
+              $("#unexpand_<%= post.id %>").show();
+              $("#expa_<%= post.id %>").show();
+              $("#expand_<%= post.id %>").hide();
+            });
+
+            $("#unexpand_<%= post.id %>").click(function(){
+              $("#expand_<%= post.id %>").show();
+              $("#expa_<%= post.id %>").hide();
+              $("#unexpand_<%= post.id %>").hide();
+            });
+          </script>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <span style="color: red;font-size: 15px;left: 510px;position: relative;top: -8px;">No Posts.</span>
+<% end %>

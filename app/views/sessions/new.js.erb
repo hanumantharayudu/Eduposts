@@ -1,0 +1,7 @@
+<% if params[:role] == 'student' %>
+  $('.student_box').animate({'height': '20px'},function(){$('.student_box').html('<%= escape_javascript render :partial => 'devise/sessions/new' %>');});
+  $(".instructor_box").html('<img width="300px" height="300px" src="/assets/instructor.png"/><a style="position:relative;top:20px;" onclick="student_login(&quot;teacher&quot;); return false;" href="#" class="instructor_login_button"><img src="/assets/instructor_login_button.png" alt="Instructor_login_button"/></a>');
+<% else %>
+  $(".instructor_box").animate({'height': '20px'},function(){$(".instructor_box").html('<%= escape_javascript render :partial => 'devise/sessions/new' %>');});
+  $(".student_box").html('<img width="300px" height="300px" src="/assets/student.png"/><a style="position:relative;top:20px;" onclick="student_login(&quot;student&quot;); return false;" href="#" class="student_login_button"><img src="/assets/student_login_button.png" alt="student_login_button"/></a>');
+<% end %>

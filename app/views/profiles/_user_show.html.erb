@@ -1,0 +1,43 @@
+<div class="row-fluid">
+
+  <div class="span12">
+    <div class="profile_box_right">
+      <% if @user.id == current_user.id %>
+        <%= link_to 'Edit Profile',edit_profile_path(:school_name => current_user.school_admin.school,:id =>current_user.id), :class => 'btn' %>
+      <% else %>
+        <div class="btn-group other_profile_options_button">
+          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            <img src="/assets/dude.png" width="15px" height="20px"/>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><%= link_to_function "Post to #{@user.username}", "post('#{@user.school_admin.school}',#{@user.id})"%></li>
+            <li><%= link_to_function "Report #{@user.username}", "report('#{@user.school_admin.school}',#{@user.id})"%></li>
+          </ul>
+        </div>
+      <% end %>
+      <div class="tweets_num"><span class="black_bold"><%= @user.tweets.where("reply IS NULL").count %></span>&nbspPOSTS</div>
+      <hr class="gray_divider" width="80px"/>
+      <div class="following_num"><span class="black_bold"><%= @user.tweets.where("reply IS NOT NULL").count %></span>&nbspREPLIES</div>
+      <% if @user.id == current_user.id and current_user.role == 'student'%>
+        <hr class="gray_divider" width="80px"/>
+        <div class="following_num">&nbspBADGES</div>
+      <% end %>
+
+    </div>
+
+    <div class="box_c1_mp extended">
+      <div class="cover_photo" style= "background-image : url(<%= @user.theme.present? ? @user.theme : '/assets/cover_photo.jpg'%>)">
+        <% if @user.id == current_user.id %>
+          <div class="cover_photo_button"><a href="javascript:changeBGImage('<%= current_user.school_admin.school %>',0,<%= current_user.id %>)">switch theme</a></div>
+        <% end %>
+      </div>
+      <%= profile_picture %>
+      <h2 class="profile_name"><%= @user.fullname %></h2>
+      <h4 class="at_name"><%= @user.username %></h4>
+      <br/>
+      <p class="bio"><%= @user.bio %></p>
+    </div>
+
+  </div>
+</div>

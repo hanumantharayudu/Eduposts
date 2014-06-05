@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<div class="main">
+  <div class="container"><br/>
+    <br/>
+    <div class="span5" style="position: relative;left: 310px;">
+      <strong>Create an account if you are new here:</strong>
+      <br/>
+      <br/>
+      <%= form_for(@school, :url => school_path(@school), :html => { :method => :put }) do |f| %>
+        <%= f.hidden_field :reset_password_token %>
+        <div class="control-group">
+          <label class="control-label" for="inputPassword">Create a password</label>
+          <div class="controls">
+            <%= f.password_field :password, :class => 'input-xlarge', :id => "inputPassword", :placeholder => "Password" %>
+            <%= validation_error(@school.errors["password"]) %>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="inputPassword">Confirm password</label>
+          <div class="controls">
+            <%= f.password_field :password_confirmation, :class => 'input-xlarge', :id => "inputPassword", :placeholder => "Password" %>
+            <%= validation_error(@school.errors["password_confirmation"]) %>
+          </div>
+        </div>
+        <div class="control-group">
+          <button type="submit" class="btn">Create account</button>
+        </div>
+      <% end %><br /><br /><br /><br />
+    </div>
+  </div>
+</div>

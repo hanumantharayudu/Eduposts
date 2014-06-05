@@ -1,0 +1,8 @@
+<%= form_for @post, :url => user_posts_path(@user),:html => {:multipart => true, :method => 'POST'},:remote => true do |f| %>
+  <%= f.text_area :body, :value => "#{@user.username != nil ? @user.username+' ' : '' }",:rows => 1,:id => 'area',:style => "width: 90%;resize:none;"  %>
+  <div class="input-container btn attachment" id="file_browse_wrapper1" style="margin-left: 0px;"><%= image_tag("/assets/paperclip.png", :width => '15px;', :height => '20px;')%>
+    <%= f.file_field :document, :id => "file_browse", :onChange => 'readURL(this)' %>
+  </div>
+  <img id="PreviewImage" style="height: 16px;left: 13px;position: relative;top: 6px;width: 20px;display: none;"  />
+  <%= f.submit 'Post', :id => "post",:class =>'btn', :style => 'display: none;float:right;left: -23px;position: relative;'%>
+<% end %>

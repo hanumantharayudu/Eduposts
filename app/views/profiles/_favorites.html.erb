@@ -1,0 +1,87 @@
+<h2 class="post.tweets_title">
+  <%= @header %>
+  <span id="success" style="color: green;display: none;float: right;font-size: 15px;position: relative;top: -5px;">Successfully deleted this post.tweet.</span>
+</h2>
+<div class="posts_box first">
+  <% if @posts.present? %>
+    <% for post in @posts %>
+      <div class="posts_box" id="post_<%= post.tweet.id %>">
+        <div style="float:left;clear:both;"><%= post_picture(post.tweet) %></div>
+        <div class="post">
+          <h5 class="post_name"><%= link_to post.tweet.user.fullname,profile_path(:school_name => current_user.school_admin.school,:id =>post.tweet.user.id), :style => 'color:black;font-weight:bold;' %></h5>
+          <div class="post_at">&nbsp<%= post.tweet.user.username %></div>
+          <div class="post_time"><%= time_ago_in_words(post.tweet.created_at) %></div>
+          <div class="post_text">
+            <% if post.tweet.receiver.present? %>
+              <% if post.tweet.body > post.tweet.body.slice(0..300) %>
+                <span id="pos_<%= post.tweet.id%>"><%= User.find_by_username(post.tweet.body.split(" ")[0]).present? ? ((link_to post.tweet.body.split(" ")[0], profile_path(:school_name => params[:school_id] ? params[:school_id] : current_user.school_admin.school,:id =>post.tweet.receiver.id))+' '+post.tweet.body.slice(post.tweet.body.split(" ")[0].length..post.tweet.body.slice(0..300).length)) : post.tweet.body.slice(0..300) %><%= link_to_function "...", "expand(#{post.tweet.id})" %><br /></span>
+              <% else %>
+                  <%= User.find_by_username(post.tweet.body.split(" ")[0]).present? ? ((link_to post.tweet.body.split(" ")[0], profile_path(:school_name => params[:school_id] ? params[:school_id] : current_user.school_admin.school,:id =>post.tweet.receiver.id))+' '+post.tweet.body.slice(post.tweet.body.split(" ")[0].length..post.tweet.body.length)) : post.tweet.body %><br />
+                <% end %>
+              <div id="expa_<%= post.id %>"  style="display:none;">
+                <%= User.find_by_username(post.tweet.body.split(" ")[0]).present? ? ((link_to post.tweet.body.split(" ")[0], profile_path(:school_name => params[:school_id] ? params[:school_id] : current_user.school_admin.school,:id =>post.tweet.receiver.id))+' '+post.tweet.body.slice(post.tweet.body.split(" ")[0].length..post.tweet.body.length)) : post.tweet.body %>
+              </div>
+            <% else %>
+              <% if post.tweet.body > post.tweet.body.slice(0..300) %>
+                <span id="pos_<%= post.tweet.id%>"><%= ((post.tweet.body.slice(0..300))) %><%= link_to_function "...", "expand(#{post.tweet.id})" %><br /></span>
+              <% else %>
+                  <%= ((post.tweet.body)) %><br />
+                <% end %>
+              <div id="expa_<%= post.tweet.id %>"  style="display:none;">
+                <%=((post.tweet.body)) %>
+              </div>
+            <% end %>
+            <% if post.tweet.document.present? %>
+              <%= link_to image_tag(post.tweet.document.url(:original),:width => '50px;', :height => '50px;'), post.tweet.document.url %>
+            <% end %>
+          </div>
+          <script>
+            $("#post_<%= post.tweet.id%>").hover(function(){
+              $("#link_<%= post.tweet.id %>").show();
+            })
+
+            $("#post_<%= post.tweet.id%>").mouseleave(function(){
+              $("#link_<%= post.tweet.id %>").hide();
+            })
+          </script>
+          <div class="action_row">
+            <% if post.tweet.body > post.tweet.body.slice(0..300) %>
+              <%= link_to_function "expand", "expand(#{post.tweet.id})", :id => "expand_#{post.tweet.id}" %>
+              <%= link_to_function "Hide", "unexpand(#{post.tweet.id})", :id => "unexpand_#{post.tweet.id}", :style => 'display:none;' %>
+              &nbsp&nbsp
+            <% end %>
+            <span id="link_<%= post.tweet.id %>" style="display:none;">
+              <% if post.tweet.tweet_id == nil %>
+                <% if post.tweet.reply == true %>
+                  <%= link_to_function image_tag("/assets/discussion.png", :height => "10px", :width => "10px")+'View Conversation', "conversation('#{current_user.school_admin.school}',#{post.tweet.id})", :id => "discussion_#{post.tweet.id}" %>
+                <% end %>
+              <% else %>
+                <%= link_to_function image_tag("/assets/discussion.png", :height => "10px", :width => "10px")+'View Conversation', "conversation('#{current_user.school_admin.school}',#{post.tweet.id})", :id => "discussion_#{post.tweet.id}" %>
+              <% end %>
+              &nbsp&nbsp
+              <%= link_to_function image_tag("/assets/reply_icon.png", :width => '10px', :height => '10px')+'Reply', "reply(#{current_user.id}, #{post.tweet.id})" %>
+              &nbsp&nbsp
+              <% if post.tweet.user_id == current_user.id  %>
+                <%= link_to image_tag("/assets/repost_icon.png", :width => '10px', :height => '10px')+'Repost',repost_user_post_path(current_user.id,post.tweet.id),:remote => true,:method => 'post' %>
+                &nbsp&nbsp
+                <span id="delete_<%= post.tweet.id %>">
+                  <%= link_to image_tag("/assets/delete_post.png", :width => '10px', :height => '10px')+'Delete', user_post_path(current_user,post.tweet), :method => :delete, :remote => true,:confirm => "Are you Sure..", :class => 'button medium red'%>
+                </span>
+              <% end %>
+              &nbsp&nbsp
+              <% if !post.tweet.favorite.present? || !current_user.favorite_for(post.tweet).present? %>
+                <%= link_to image_tag("/assets/favorite_icon.png", :width => '10px', :height => '10px')+'Favorite',favourite_user_posts_path(post.tweet.id),:remote => true,:method => 'post.tweet' %>
+              <% elsif post.status == true %>
+                <%= link_to image_tag("/assets/favorite_icon.png", :width => '10px', :height => '10px')+'Favorited',update_favourite_user_posts_path(post.tweet.id),:remote => true,:method => 'put', :style => 'color: #FF9B00;' %>
+              <%elsif post.status == false%>
+                <%= link_to image_tag("/assets/favorite_icon.png", :width => '10px', :height => '10px')+'Favorite',update_mark_favourite_user_posts_path(post.tweet.id),:remote => true,:method => 'put' %>
+              <% end %>
+            </span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <span style="color: red;font-size: 15px;left: 300px;position: relative;">No <%=  params[:post].present? ? @header : "posts" %>.</span>
+  <% end %>
+</div>

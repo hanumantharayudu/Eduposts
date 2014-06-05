@@ -1,0 +1,62 @@
+<%= render :partial => '/profiles/user_show' %>
+<div id="show-profile">
+  <div class="row-fluid">
+
+    <div class="span4">
+      <% if @user.id != current_user.id %>
+        <div class="box_l1_hp side_nav_box">
+          <div class="post_to_box" style="margin-left: 10px;margin-top: 10px;min-height: 145px;">
+            <h5>Post to <%#= @user.username %></h5>
+            <%= render :partial => 'posts/form'%>
+          </div>
+        </div>
+      <% end %>
+      <% if @user.id == current_user.id %>
+        <div class="box_l1_hp">
+          <%= link_to "<button class='side_nav_button profile active_button' type=button'>Posts<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe, profile_path(:school_name => current_user.school_admin.school,:id =>current_user.id, :post => 'post'), :remote => true %>
+          <%= link_to "<button class='side_nav_button password' type=button'>Replies<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe, profile_path(:school_name => current_user.school_admin.school,:id =>current_user.id, :post => 'reply'), :remote => true %>
+          <%= link_to "<button class='side_nav_button replies' type=button'>Favorites<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe, favorites_profile_path(:school_name => current_user.school_admin.school,:id =>current_user.id, :post => 'favorite'), :remote => true %>
+        </div>
+      <% end %>
+
+      <!--<div class="box_l2_hp">
+    			This box has not been decided what to be used for.
+      </div>-->
+
+      <%= render :partial => 'profiles/links' %>
+
+    </div>
+
+    <div class="span8" id="posts">
+      <h2 class="posts_title">
+        <span id="success" style="color: green;display: none;float: right;font-size: 15px;position: relative;top: -5px;">Successfully deleted this post.</span>
+      </h2>
+      <%= render :partial => '/profiles/show' %>
+      <input type="hidden" value="show" id="post_type" />
+      <input type="hidden" value="<%= @user.school_admin.id %>" id="current_user_school_id" />
+      <input type="hidden" value="<%= @user.id %>" id="current_user_id" />
+    </div>
+  </div>
+</div>
+<script>
+  jQuery(function() {
+    jQuery(window).scroll(
+    function() {
+      if (($(window).scrollTop() == $(document).height() - $(window).height()) && jQuery('#posts_page').val() > 0)
+      {
+        if (jQuery("#post_type").val() == 'show') {
+          posts(jQuery('#current_user_school_id').val(),jQuery('#current_user_id').val(), jQuery('#posts_page').val())
+        }
+      }
+    });
+  });
+</script>
+
+
+
+
+
+
+
+
+

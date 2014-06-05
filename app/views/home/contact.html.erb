@@ -1,0 +1,61 @@
+<div class="main">
+  <div class="container">
+
+    <h2><span>Contact us</span></h2>
+
+    <div class="row">
+      <div class="span4">
+        <h4>Drop us a line</h4>
+        <%= form_for @contact, :url => post_contact_home_index_path, :html => {:class => 'form'} do |f| %>
+          <%= f.label :name, "Your name:" %>
+          <%= f.text_field :name, :class => "span4" %>
+          <%= validation_error(@contact.errors["name"]) %>
+
+          <%= f.label :email, "Email:" %>
+          <%= f.email_field :email, :class => "span4", :id => "inputEmail" %>
+          <%= validation_error(@contact.errors["email"]) %>
+
+          <%= f.label :message, "Your message:" %>
+          <%= f.text_area :message, :class => "span4", :rows => '4' %>
+          <%= validation_error(@contact.errors["message"]) %>
+
+          <%= f.check_box :send_copy, :class => "checkbox" %> Send me a copy<br /><br />
+
+          <button type="submit" class="btn">Alright sparky, send it.</button>
+        <% end %>
+      </div>
+
+      <div class="span4">
+        <h4>Reach us</h4>
+        <div class="well">
+          <p>Company Address:</p>
+          <hr>
+          <p>
+            Venture World Wide Enterprises<br/>
+            3232 Waldeck Street<br/>
+            Cleburne, TX 76031<br/>
+            Call us: +1.123.456.789
+          </p>
+          <hr>
+          <p>Don't miss the chance to visit our headquarter from monday through friday from 9am to 5pm. Best regards from the whole Venture Team.</p>
+        </div>
+      </div>
+
+      <div class="span4">
+        <h4>Visit us</h4>
+        <img class="framed" src="/assets/map.png" alt="map"/>
+      </div>
+    </div><!--/.row-->
+
+    <div class="row">
+      <h2><span>Privacy Policy</span></h2>
+      <div class="span12">
+        <div class="alert centered">
+          <strong>Our privacy policy</strong>
+          Our website does not share personal information of any kind with anyone. We will not sell or rent your name or personal information to any third party. We DO NOT sell, rent or provide outside access to our mailing list or any data we store. Any data that a user stores via our facilities is wholly owned by that user or business. At any time a user or business is free to take their data and leave, or to simply delete their data from our facilities.
+          Our website only collects such personal information that is necessary for you to access and use our services. This personal information includes, but is not limited to, first and last name, physical address, zip code, email address, phone number, social security number, birth date, credit card information, financial information, and other personal information necessary to generate proper legal documents.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

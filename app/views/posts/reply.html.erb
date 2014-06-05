@@ -1,0 +1,37 @@
+<div id="conversation_back">
+  <%= render :partial => '/profiles/conn' %>
+  <div id="conversation">
+    <%= render :partial => 'reply' %>
+  </div>
+</div>
+<script type="text/javascript">
+  jQuery(function($){
+  });
+  $(function()
+  {
+    $("#tweet_body").focus(function()
+    {
+      $(this).animate({"height": "100px"}, "fast" );
+      $("#button_bar").show();
+      $("#file_browse_wrapper").show();
+      $("#post1").css('display', 'block');
+      return false;
+    });
+  });
+
+  function readURL(input) {
+    if (input.files && input.files[0]) {//Check if input has files.
+      var reader = new FileReader();//Initialize FileReader.
+
+      reader.onload = function (e) {
+        $('#PreviewImage1').attr('src', '/assets/check_loaded.png');
+        $('#PreviewImage1').show();
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  function reply_user_post_path(user){
+    $("#tweet_body").val(user + " ");
+  }
+</script>

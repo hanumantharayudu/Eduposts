@@ -1,0 +1,55 @@
+<div class="span12">
+
+  <div class="box_c1_mp">
+    <div style="float: left;"><%= image_tag(@user.avatar.url(:original) , :width => '140px;', :height => '140px;', :class => "profile_pic img-rounded") %></div>
+    <div style="float: left;left:12px;">
+      <h2 class="profile_name"><%= @user.username.split('@').last %></h2>
+      <h4 class="at_name"><%= @user.email %></h4>
+      <div class="location"><%= @user.state%></div>
+      <a class="website" href=""><%= @user.website %></a>
+    </div>
+    <div class="profile_box_right">
+      <div class="tweets_num"><%= @user.tweets.count %>&nbsp<%= link_to "Posts", school_student_path(@school,@user) %></div>
+      <div class="following_num"><%= @user.sent_follows.where("status = #{true}").count %>&nbsp<%= link_to "Following", following_school_student_path(@school,@user)%></div>
+      <div class="followers_num"><%= @user.received_follows.where("status = #{true}").count %>&nbsp<%= link_to "Followers", followers_school_student_path(@school,@user)%></div>
+
+    </div>
+  </div>
+
+</div>
+<div class="row-fluid">
+
+  <div class="span4">
+    <div class="box_l2_hp">
+    			This box has not been decided what to be used for.
+    </div>
+
+    <div class="box_l3_hp">
+      <div class="link_box">
+        &#169; &nbsp 2012 &nbsp EduPosts &nbsp More links go here
+      </div>
+    </div>
+
+  </div>
+
+  <div class="span8">
+    <div class="box_r1_hp">
+      <h2 class="posts_title">Followers</h2><hr />
+      <% if @followers.present? %>
+        <% for follow in @followers %>
+          <div class="posts_box">
+            <div style="float:left;clear:both;"><%= image_tag follow.user.avatar.url(:original), :width => "50px;", :height => "50px;", :class => "profile_pic img-rounded" %></div>
+            <div class="post" style="border-bottom: 1px solid grey;height: auto;">
+              <h5 class="post_name"><%= follow.user.username.split('@').last %></h5>
+              <div class="post_at">&nbsp<%= follow.user.email %></div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <span style="color: red;font-size: 15px;left: 376px;position: relative;top: 17px;">No Posts.</span>
+      <% end %>
+    </div>
+
+  </div>
+
+</div>

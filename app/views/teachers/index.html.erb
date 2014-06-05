@@ -1,0 +1,74 @@
+<h4>Teachers</h4>
+<% if @teachers.present? %>
+  <table class="table table-striped" style="background:white;">
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>User Name</th>
+      <th>Status</th>
+      <th>Role</th>
+      <th>Actions</th>
+    </tr>
+    <% for school in @teachers %>
+      <tr style="text-align: center;">
+        <td><%= school.first_name %></td>
+        <td><%= school.last_name %></td>
+        <% if school.reset_password_token == nil %>
+          <td>
+            <%= link_to school.email, school_teacher_path(@school, school) %>
+          </td>
+        <% else %>
+          <td><%= school.email %></td>
+        <% end %>
+        <% if school.username.present? %>
+          <td><%= school.username.split("@").last %></td>
+        <% else %>
+          <td></td>
+        <% end %>
+        <td>
+          <% if school.reset_password_token == nil %>
+            Joined
+          <% else %>
+            Invitation Sent
+          <% end %>
+        </td>
+        <td><%= school.role %></td>
+        <td>
+          <% if school.reset_password_token == nil %>
+            <%= link_to "View Posts", posts_school_student_path(@school, school),:class=>"btn btn-primary"%> |
+          <% end %>
+          <%= link_to "Delete", teacher_path(school), :remote => true, :method => :delete,:class=>"btn btn-danger", :confirm => "Are You Sure.." %>|
+             <%= link_to "Assign Class", assign_class_school_teacher_path(@school, school),:class=>"btn btn-primary"%> 
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <span style="color: red;font-size: 15px;left: 166px;position: relative;top: 17px;">No Users.</span>
+<% end %>
+
+<%= link_to "Back to Dashboard",school_path(@school),:class=>"btn btn-default" %>
+
+<style>
+  .btn-danger:hover{
+    color:white;
+  }
+  .btn-primary:hover{
+    color:white;
+  }
+  .table td  {
+    border-top: 1px solid #DDDDDD;
+    line-height: 20px;
+    padding: 8px;
+    text-align: center;
+    vertical-align: top;
+  }
+  .table th{
+    border-top: 1px solid #DDDDDD;
+    line-height: 20px;
+    padding: 8px;
+    text-align: center;
+    vertical-align: top;
+  }
+</style>

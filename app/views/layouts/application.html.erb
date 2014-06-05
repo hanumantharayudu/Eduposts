@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Eduposts</title>
+    <link rel="shortcut icon" href="/assets/favicon.png" />
+    <%= stylesheet_link_tag "/assets/bootstrap_files/bootstrap","screen","/assets/bootstrap-responsive", "jquery.notifyBar",'base' %>
+    <%= javascript_include_tag "application","jquery.validate", "jquery.notifyBar","jquery.simplyscroll","jquery.remotipart","bootstrap.min","script","jquery.iframe-transport","styleswitch" %>
+    <% ['notice', 'error', 'warning'].each do |f|%>
+      <% if flash[f.to_sym]%>
+        <script type="text/javascript" >
+          jQuery(function () {
+            jQuery.notifyBar({
+              cls: "<%= f %>",
+              html: "<%=  flash[f.to_sym] %>",
+              delay: 3000,
+              animationSpeed: "normal"
+            });
+          });
+        </script>
+      <%end%>
+    <%end%>
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+  </head>
+  <body class="meshed_background">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <!--<a class="brand" href="index.html"><img src="images/logo.png" height="85px" width="115px"/></a>-->
+          <img class="eduposts_logo" src="/assets/logo.png" height="30px" width="90px"/>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <% if params[:controller] == 'students' || params[:controller] == 'teachers' || params[:controller] == 'schools' %>
+              <% else %>
+                <% if params[:controller] == 'home' && params[:action] == 'index'  %>
+                  <li class="active"><%= link_to image_tag("/assets/home_icon_blue.png", :class => "nav_icon", :height => "30px", :width => "20px")+'Home', root_path  %></li>
+                <% else %>
+                  <li><%= link_to image_tag("/assets/home_icon_default.png", :class => "nav_icon", :height => "30px", :width => "20px")+'Home', root_path  %></li>
+                <% end %>
+                <% if params[:controller] == 'home' && params[:action] == 'about'  %>
+                  <li class="active"><%= link_to image_tag("/assets/my_tweets_icon_blue.png", :class => "nav_icon", :height => "30px", :width => "20px", :class => 'nav_icon')+"About", root_path %></li>
+                <% else %>
+                  <li><%= link_to image_tag("/assets/my_tweets_icon_default.png", :class => "nav_icon", :height => "30px", :width => "20px", :class => 'nav_icon')+"About", root_path %></li>
+                <% end %>
+                <% if params[:controller] == 'home' && (params[:action] == 'contact' or params[:action] == 'post_contact')  %>
+                  <li class="active"><%= link_to image_tag("/assets/@_blue.png", :height => "30px", :width => "20px", :class => 'nav_icon')+"Contact", root_path %></li>
+                <% else %>
+                  <li><%= link_to image_tag("/assets/@_white.png", :height => "30px", :width => "20px", :class => 'nav_icon')+"Contact", root_path %></li>
+                <% end %>
+              <% end %>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div id='ajax_loader_big_div'>
+      <img alt=""  src="/assets/bigger_spinner.gif" style="width:32px;height:32px;z-index:1000000;"/>
+    </div>
+    <%= yield %>
+    <%= render :partial => 'layouts/google_analytics' if Rails.env == 'production' %>
+  </body>
+</html>
+

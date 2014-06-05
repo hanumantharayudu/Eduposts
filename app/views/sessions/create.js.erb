@@ -1,0 +1,7 @@
+<%  if @user.present? %>
+  <% resource = warden.authenticate!(:scope => resource_name) %>
+  window.location.href = '<%=  after_sign_in_path_for(current_user) %>';
+<%  else %>
+  <% @role = params[:user][:role] == 'student' ? '#error' : '#error2' %>
+  $('<%= @role %>').show();
+<%  end %>

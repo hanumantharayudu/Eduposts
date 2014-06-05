@@ -1,0 +1,11 @@
+<div class="span8" id="posts" style="width: 100%;">
+  <h2 class="posts_title">
+    Posts
+    <span id="success" style="color: green;display: none;float: right;font-size: 15px;position: relative;top: -5px;">Successfully deleted this post.</span>
+    <%= will_paginate @posts, :param_name => 'index_page', :page_links => false, :previous_label => 'Prev', :next_label => "Next" %>
+  </h2>
+  <div class="posts_box first">
+    <%= render :partial => 'index' %>
+    <input type="hidden" value="inbox" id="post_type" />
+  </div>
+</div>

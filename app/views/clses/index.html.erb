@@ -1,0 +1,42 @@
+<h4>Classes With Subjects</h4>
+<% if @classes.present? %>
+  <table class="table table-striped" style="background:white;">
+    <tr>
+      <th>Class Name</th>
+      <th>Subject Name</th>
+      <th>Subject Name</th>
+      <th>Subject Name</th>
+      <th>Subject Name</th>
+      <th>Subject Name</th>
+      <th>Subject Name</th>
+    </tr>
+    <% for cls in @classes %>
+      <tr>
+        <td><%= cls.class_name %></td>
+        <% cls.subjects.each do |f|  %>
+          <td><%= f.subject_name %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <span style="color: red;font-size: 15px;left: 166px;position: relative;top: 42px;">No Classes.</span>
+<% end %>
+<%= link_to "Back to Dashboard",school_path(@school),:class=>"btn btn-default" %>
+
+<style>
+  .table td  {
+    border-top: 1px solid #DDDDDD;
+    line-height: 20px;
+    padding: 8px;
+    text-align: center;
+    vertical-align: top;
+  }
+  .table th{
+    border-top: 1px solid #DDDDDD;
+    line-height: 20px;
+    padding: 8px;
+    text-align: center;
+    vertical-align: top;
+  }
+</style>

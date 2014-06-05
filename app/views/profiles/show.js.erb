@@ -1,0 +1,10 @@
+$('#posts').html('<%= escape_javascript render :partial => '/profiles/show'%>');
+<% if params[:post] == 'reply' %>
+  $('.password').addClass('active_button');
+  $('.profile').removeClass('active_button');
+<% else %>
+  $('.profile').addClass('active_button');
+  $('.password').removeClass('active_button');
+<% end %>
+$('.assignments').removeClass('active_button');
+$('.replies').removeClass('active_button');

@@ -1,0 +1,52 @@
+<div id="conversation_modal" style="bottom: auto; overflow: visible;top: 180px;">
+  <div style="float: right;margin-right: -6px;margin-top: -12px;">
+    <%=image_tag("x.png", :style => "cursor: pointer;", :border =>0,:width => '12px', :height => '13px', :onclick => "hide_popup();")%>
+  </div>
+  <div class="gradient-section single-page">
+    <div id="message_11147329" class="message single-message suggested twitter" data-ape="messages_11147329">
+      <div class="avatar-contain">
+        <div class="avatar">
+          <div class="msgSource"></div>
+          <% if @post.user.role == 'student' %>
+            <%= @post.user.avatar.present? ? image_tag(@post.user.avatar.url(:original)) : image_tag("/assets/profile_pic_student.png")%>
+          <% else %>
+            <%= @post.user.avatar.present? ? image_tag(@post.user.avatar.url(:original)) : image_tag("/assets/profile_pic_instructor.png")%>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="message-content clearfix">
+      <h4 class="conversation_post_name" style="line-height:0px;"><%= @post.user.fullname %></h4>
+      <div class="started_this_conversation"> Started this conversation </div>
+
+      <div id="message_body_11147329" class="conversation_post_content">
+        <% if @post.receiver.present? %>
+          <% if @post.body > @post.body.slice(0..300) %>
+            <span id="pos2_<%= @post.id%>"><%= User.find_by_username(@post.body.split(" ")[0]).present? ? ((link_to @post.body.split(" ")[0], profile_path(@post.receiver))+' '+@post.body.slice(@post.body.split(" ")[0].length..@post.body.slice(0..300).length)) : @post.body.slice(0..300) %><%= link_to_function "...", "expand2(#{@post.id})" %><br /></span>
+          <% else %>
+              <%= User.find_by_username(@post.body.split(" ")[0]).present? ? ((link_to @post.body.split(" ")[0], profile_path(@post.receiver))+' '+@post.body.slice(@post.body.split(" ")[0].length..@post.body.length)) : @post.body %><br />
+            <% end %>
+          <div id="expa2_<%= @post.id %>"  style="display:none;">
+            <%= User.find_by_username(@post.body.split(" ")[0]).present? ? ((link_to @post.body.split(" ")[0], profile_path(@post.receiver))+' '+@post.body.slice(@post.body.split(" ")[0].length..@post.body.length)) : @post.body %>
+          </div>
+        <% else %>
+          <% if @post.body > @post.body.slice(0..300) %>
+            <span id="pos2_<%= @post.id%>"><%= @post.body.slice(0..300) %><%= link_to_function "...", "expand2(#{@post.id})" %><br /></span>
+          <% else %>
+              <%= @post.body %><br />
+            <% end %>
+          <div id="expa2_<%= @post.id %>"  style="display:none;">
+            <%= @post.body %>
+          </div>
+        <% end %>
+        <div class="conversation_post_date"><%= time_ago_in_words(@post.created_at) %></div>
+        &nbsp&nbsp<% if @post.body > @post.body.slice(0..300) %>
+          <%= link_to_function "expand", "expand2(#{@post.id})", :id => "expand2_#{@post.id}" %>
+          <%= link_to_function "Hide", "unexpand2(#{@post.id})", :id => "unexpand2_#{@post.id}", :style => 'display:none;' %>
+          &nbsp&nbsp
+        <% end %>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+</div>

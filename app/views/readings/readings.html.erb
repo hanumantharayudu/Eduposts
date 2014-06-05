@@ -1,0 +1,17 @@
+<div class="popup_post_box responsive_height" style="min-height: 200px;">
+  <div style="margin: -14px 8px;float :right;">
+    <%=image_tag("simple-overlay-close.gif", :style => "cursor: pointer;margin : 21px -5px -2px 0px;", :border =>0,:width => '20px', :height => '20px', :onclick => "hide_popup();")%>
+  </div>
+  <div class="whats_happening">Readings</div>
+  <% if @readings.present? %>
+    <% for reading in @readings %>
+      <div class="faqs_list" style="text-align: left;">
+        <div class="faq_title">
+          <%= reading.title %>?
+        </div>
+      </div><br />
+    <% end %>
+  <% else %>
+    <span style="color: red;position: relative;top: 60px;">No Readings</span>
+  <% end %>
+</div>

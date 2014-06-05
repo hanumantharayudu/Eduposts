@@ -1,0 +1,5 @@
+$("#post_<%= @post.id %>").remove();
+<% if !@delete.present? %>
+  $("#discussion_<%= @delete_post %>").hide();
+<% end %>
+$('#success').show().delay(3000).fadeOut('slow');

@@ -1,0 +1,4 @@
+$('#conversation').html('<%= escape_javascript render :partial => '/profiles/conversation'%>');
+<% if !@post.errors.present? %>
+  $('#success1').show().delay(3000).fadeOut('slow');
+<% end %>

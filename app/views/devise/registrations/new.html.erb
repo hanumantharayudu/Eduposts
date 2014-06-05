@@ -1,0 +1,48 @@
+<div class="main">
+  <div class="row">
+    <div class="span10">
+      <div class="sign_up_content">
+        <h3><b>Join Eduposts today.</b></h3>
+        <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name),:html => {:id => "commentForm"}) do |f| %>
+          <%= devise_error_messages! %>
+          <div class="controls">
+            <%= f.text_field :first_name, :class => 'span5 required', :id => "cfame", :placeholder => "First Name" %>
+          </div>
+          <div class="controls">
+            <%= f.text_field :last_name, :class => 'span5 required', :id => "clame", :placeholder => "Last Name" %>
+          </div>
+          <div class="controls">
+            <%= f.email_field :email, :class => 'span5 text required email', :id => "inputEmail", :placeholder => "Email" %>
+          </div>
+          <div class="controls">
+            <%= f.select :school_admin_id, options_for_select(SchoolAdmin.all.collect{|c| [c.school_name.upcase, c.id]},:selected => (params[:user] ? params[:user][:school_admin_id] : '')),:class => 'span5', :id => "inputEmail", :placeholder => "Email"%>
+          </div>
+          <div class="controls">
+            <%= f.select :role, options_for_select([['Student','student'],['Instructor','teacher']],:selected => (params[:user] ? params[:user][:role] : '')),:class => 'span5', :id => "inputEmail", :placeholder => "Email"%>
+          </div>
+          <div class="controls">
+            <%= f.password_field :password, :class => 'span5 required', :id => "password", :placeholder => "Password" %>
+          </div>
+          <button type="submit" class="btn btn-warning span5 gray_button create_my_account">Create My Account</button>
+        <% end %>
+      </div>
+    </div><!--/span5-->
+  </div>
+</div>
+<style>
+  .span10 {
+    margin-left: 310px;
+    width: 780px;
+  }
+
+  h2{
+    display: none;
+  }
+
+  #user_school_admin_id,#user_role{
+    width: 470px;
+  }
+</style>
+<script>
+  $("#commentForm").validate();
+</script>

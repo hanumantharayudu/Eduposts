@@ -1,0 +1,120 @@
+<div class="span4">
+
+  <div class="box_l1_ep">
+    <% if @user.role == 'student' %>
+      <%= @user.avatar.present? ? image_tag(@user.avatar.url(:original),:height => '50px', :width => '50px' , :class => "profile_pic img-rounded fifty_by_fifty") : image_tag("/assets/profile_pic_student.png", :class => "profile_pic img-rounded fifty_by_fifty") %>
+    <% else %>
+      <%= @user.avatar.present? ? image_tag(@user.avatar.url(:original),:height => '50px', :width => '50px' , :class => "profile_pic img-rounded fifty_by_fifty") : image_tag("/assets/profile_pic_instructor.png", :class => "profile_pic img-rounded fifty_by_fifty") %>
+    <% end %>
+    <h3 class="profile_name"><%= @user.fullname %></h3>
+    <%= link_to "View my profile page", profile_path(@user), :class => "view_my_profile_page" %>
+  </div>
+
+
+  <div class="box_l1_hp">
+    <%= link_to "<button class='side_nav_button profile active_button' type=button'>Profile<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe, edit_profile_path(@user) %>
+    <%= link_to "<button class='side_nav_button password' type=button'>Password<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe, edit_password_profiles_path %>
+  </div>
+
+  <div class="box_l3_hp">
+    <div class="link_box">
+      &#169; &nbsp 2012 &nbsp EduPosts &nbsp More links go here
+    </div>
+  </div>
+</div>
+
+<div class="span8">
+  <div class="box_r1_ep">
+    <h2 class="posts_title">Profile</h2>
+    <div class="profile_note"></div>
+    <div class="edit_profile_right_column">
+      <%= form_for(@user, :url => profile_path(:school_name => current_user.school_admin.school,:id => @user)) do |f| %>
+        <table width="100%" cellpadding="20%">
+          <tr>
+            <td><%= f.label :avatar, "Photo" %></td>
+            <td>
+              <div style="width:100%;">
+                <div style="width: 20%;float: left;">
+                  <%if @user.role == 'student'%>
+                    <%=@user.avatar.present? ? image_tag(@user.avatar.url(:original) , :width => '100px;', :height => '100px;', :id => "PreviewImage1") : image_tag("/assets/profile_pic_student.png",:width => '100px;',:height => '100px;', :id => "PreviewImage1")%>
+                  <%else%>
+                    <%=@user.avatar.present? ? image_tag(@user.avatar.url(:original) , :width => '100px;', :height => '100px;', :id => "PreviewImage1") : image_tag("/assets/profile_pic_instructor.png",:width => '100px;',:height => '100px;', :id => "PreviewImage1")%>
+                  <%end%>
+                </div>
+                <div style="width:70%;float: left;">
+                  <div class="input-container btn" style=" line-height: 26px;padding-bottom: 5px;    padding-left: 10px;    padding-right: 10px;    padding-top: 5px;">Change photo<span class="caret"></span>
+                  </div>
+                  <%= f.file_field :avatar, :id => "realupload11", :onChange => 'readURL(this)', :style => 'left: -104px;  position: relative;  width: 0;'%>
+                  <br/>
+                  <div class="change_photo_box_text" style="width: 295px;">
+                    This photo is your identity on Eduposts and appears with your posts.Need help? <br/><a href=#">Learn More</a>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td><%= validation_error(@user.errors["avatar"]) %></td>
+          </tr>
+
+          <tr>
+            <td><%= f.label :username, "Username" %></td>
+            <td><%= f.text_field :username, :value => @user.username.split('@').last,:onBlur => "get_username(this)" %></td>
+            <td id="username_error" style="text-transform: none;font-family: Calibri-Bold;font-size:12px;width:300px;position: relative;top: 4px;float: left;left: -30px;">
+              <%= validation_error(@user.errors["username"]) %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :email, "Email" %></td>
+            <td><%= f.email_field :email, :readonly => true %></td>
+            <td> <%= validation_error(@user.errors["email"]) %></td>
+          </tr>
+          <tr>
+            <td> <%= f.label :state, "From" %></td>
+            <td> <%= f.text_field :state %></td>
+          </tr>
+          <tr>
+            <td> <%= f.label :major, "Major" %></td>
+            <td> <%= f.text_field :major %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :bio, "Bio" %></td>
+            <td><%= f.text_area :bio, :rows => 3,:style => 'resize:none;' %></td>
+          </tr>
+
+          <tr>
+            <td><%= f.label :website, "Website" %></td>
+            <td><%= f.text_field :website %></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><button type="submit" class="btn btn-info">Save Changes</button></td>
+          </tr>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</div>
+<style>
+  .form_error{
+    left: -4px;
+    position: relative;
+    top: -1px;
+    width: 317px;
+  }
+</style>
+<script>
+  function readURL(input) {
+    if (input.files && input.files[0]) {//Check if input has files.
+      var reader = new FileReader();//Initialize FileReader.
+
+      reader.onload = function (e) {
+        $('#PreviewImage1').attr('src', e.target.result);
+        $('#PreviewImage1').show();
+        $("#user_photo").hide();
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+  $(document).submit(function(){
+    var u_name = $("#user_username").val().toLowerCase()
+    $("#user_username").val('@'+u_name);
+  });
+</script>

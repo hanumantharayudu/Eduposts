@@ -1,0 +1,28 @@
+<div id="Tweet-summary" style="float: left;
+     left: 14px;top: 3px;
+     position: relative;
+     width: 100%;">
+  <div id="title">Schools</div>
+  <% if @schools.present? %>
+    <table border="1" width="100%">
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>School Name</th>
+        <th></th>
+      </tr>
+      <% for school in @schools %>
+        <tr style="text-align: center;">
+          <td><%= school.first_name %></td>
+          <td><%= school.last_name %></td>
+          <td><%= school.email %></td>
+          <td><%= school.school_name %></td>
+          <td><%= link_to "Delete", school_path(school), :method => :delete, :confirm => "Are You Sure..", :remote => true %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <span style="color: red;font-size: 15px;left: 166px;position: relative;top: 17px;">No Schools.</span>
+  <% end %>
+</div><br />

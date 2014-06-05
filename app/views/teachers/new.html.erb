@@ -1,0 +1,32 @@
+<div id="Tweet-summary" style="float: left;left: 400px;position: absolute;top: 52px;width: 35%;">
+  <div id="title">Send Invitation To Teacher</div><br />
+  <%= form_for(@teacher, :url => school_teachers_path(@school),:html => {:id => "commentForm"}) do |f| %>
+    <table>
+      <tr>
+        <td valign="top">First Name:</td>
+        <td><%= f.text_field :first_name, :class => 'required', :id => "cfame"%></td>
+      </tr>
+      <tr>
+        <td valign="top">Last Name:</td>
+        <td><%= f.text_field :last_name, :class => 'required', :id => "lfame"%></td>
+      </tr>
+      <tr>
+        <td valign="top">Email:</td>
+        <td><%= f.text_field :email, :class => 'text required email', :id => "inputEmail" %></td>
+        <td><%= validation_error(@teacher.errors["email"])%></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><%= f.submit "Send Invitation", :class => 'btn'%></td>
+      </tr>
+    </table>
+  <% end %>
+  <span style="text-align: center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(OR)</span>
+  <div>
+    <h3>Send Invitation To Teacher</h3>
+    <%= render :partial => "upload_csvs/teacher_upload_csv" %>
+  </div>
+</div>
+<script>
+  $("#commentForm").validate();
+</script>

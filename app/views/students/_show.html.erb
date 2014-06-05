@@ -1,0 +1,31 @@
+<% if @posts.present? %>
+  <% for post in @posts %>
+    <div class="posts_box" id="post_<%= post.id %>">
+      <div style="float:left;clear:both;"><%= post_picture(post) %></div>
+      <div class="post" style="border-bottom: 1px solid grey;height: auto;">
+        <h5 class="post_name"><%= post.user.username.split('@').last %></h5>
+        <div class="post_at">&nbsp<%= post.user.username %></div>
+        <div class="post_time"><%= time_ago_in_words(post.created_at) %></div>
+        <div class="post_text"><%= render :partial => '/profiles/post_text',:locals => {:post => post} %></div>
+        <div class="action_row">
+          <% if post.body > post.body.slice(0..300) %>
+            <%= link_to_function "expand", "expand(#{post.id})", :id => "expand_#{post.id}" %>
+            <%= link_to_function "Hide", "unexpand(#{post.id})", :id => "unexpand_#{post.id}", :style => 'display:none;' %>
+            &nbsp&nbsp
+          <% end %>
+          <span id="delete_<%= post.id %>">
+            <%= link_to image_tag("/assets/delete_post.png", :width => '10px', :height => '10px')+'Delete', user_post_path(@user.id,post), :method => :delete, :remote => true,:confirm => "Are you Sure..", :class => 'button medium red'%>
+          </span>
+          &nbsp&nbsp
+          <div id="expa_<%= post.id %>"  style="display:none;">
+            <%= post.created_at.strftime("%Y-%m-%d %H:%M:%S") %><br />
+            <b><%= post.user.tweets.where("reply IS NULL").count %></b>&nbsp POSTS&nbsp&nbsp
+            <b><%= post.user.tweets.where("reply IS NOT NULL").count %></b>&nbsp REPLIES
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <span style="color: red;font-size: 15px;left: 300px;position: relative;top: -9px;">No Posts.</span>
+<% end %>

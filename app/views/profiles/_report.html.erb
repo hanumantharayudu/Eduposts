@@ -1,0 +1,30 @@
+<div class="popup_post_box">
+  <div class="whats_happening">Report <%= @user.username.split('@').last %></div>
+  <div style="margin: -45px 8px;float :right;">
+    <%=image_tag("simple-overlay-close.gif", :style => "cursor: pointer;margin : 21px -5px -2px 0px;", :border =>0,:width => '20px', :height => '20px', :onclick => "hide_popup();")%>
+  </div>
+  <%= form_for @report, :url =>report_post_profile_path(@user),:html => {:method => "POST"},:remote => true do |f| %>
+    <%= f.hidden_field :status,:value => ' ' %>
+    <%= f.text_area :body, :rows => 4, :cols => 15, :value => "#{@user.username+' ' }",:class=>"popup_post_box_input" %>
+    <%= validation_error(@report.errors['body']) %>
+    <%= f.submit 'Send', :class => 'btn send_button'%>
+    <div class="btn-group post_options_button">
+      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+        Reason
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <li><%= link_to_function "Spam", "change_report(this)" %></li>
+        <li><%= link_to_function "Inappropriate Post", "change_report(this)" %></li>
+        <li><%= link_to_function "Inappropriate Profile", "change_report(this)" %></li>
+        <li><%= link_to_function "Inappropriate Language", "change_report(this)" %></li>
+      </ul>
+    </div>
+  <% end %>
+</div>
+<script>
+  function change_report(val){
+    $(".post_options_button > a").html($(val).text()+''+'<span class="caret"></span>')
+    $("#report_status").val($(".post_options_button > a").text())
+  }
+</script>

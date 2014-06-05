@@ -1,0 +1,2 @@
+module ImportentLinksHelper
+end

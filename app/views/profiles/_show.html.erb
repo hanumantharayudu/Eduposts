@@ -1,0 +1,78 @@
+<h2 class="posts_title">
+  <%= @header %>
+  <span id="success" style="color: green;display: none;float: right;font-size: 15px;position: relative;top: -5px;">Successfully deleted this post.</span>
+</h2>
+<div class="posts_box first">
+  <% if @posts.present? %>
+    <% for post in @posts %>
+      <div class="posts_box" id="post_<%= post.id %>">
+        <div style="float:left;clear:both;"><%= post_picture(post) %></div>
+        <div class="post">
+          <h5 class="post_name"><%= link_to post.user.fullname,profile_path(:school_name => current_user.school_admin.school,:id =>post.user.id), :style => 'color:black;font-weight:bold;' %></h5>
+          <div class="post_at">&nbsp<%= post.user.username %></div>
+          <div class="post_time"><%= time_ago_in_words(post.created_at) %></div>
+          <div class="post_text">
+            <%= render :partial => '/profiles/post_text',:locals => {:post => post} %>
+          </div>
+          <div class="action_row">
+            <% if post.body > post.body.slice(0..300) %>
+              <%= link_to_function "expand", "expand(#{post.id})", :id => "expand_#{post.id}" %>
+              <%= link_to_function "Hide", "unexpand(#{post.id})", :id => "unexpand_#{post.id}", :style => 'display:none;' %>
+              &nbsp&nbsp
+            <% end %>
+            <span id="link_<%= post.id %>" style="display:none;">
+              <% if post.tweet_id == nil %>
+                <% if post.reply == true %>
+                  <%= link_to_function image_tag("/assets/discussion.png", :height => "10px", :width => "10px")+'View Conversation', "conversation('#{current_user.school_admin.school}',#{post.id})", :id => "discussion_#{post.id}" %>
+                <% end %>
+              <% else %>
+                <%= link_to_function image_tag("/assets/discussion.png", :height => "10px", :width => "10px")+'View Conversation', "conversation('#{current_user.school_admin.school}',#{post.id})", :id => "discussion_#{post.id}" %>
+              <% end %>
+              &nbsp&nbsp
+              <%= link_to_function image_tag("/assets/reply_icon.png", :width => '10px', :height => '10px')+'Reply', "reply(#{current_user.id}, #{post.id})" %>
+              &nbsp&nbsp
+              <% if post.user_id == current_user.id  %>
+                <%= link_to image_tag("/assets/repost_icon.png", :width => '10px', :height => '10px')+'Repost',repost_user_post_path(current_user.id,post.id),:remote => true,:method => 'post' %>
+                &nbsp&nbsp
+                <span id="delete_<%= post.id %>">
+                  <%= link_to image_tag("/assets/delete_post.png", :width => '10px', :height => '10px')+'Delete', user_post_path(current_user,post), :method => :delete, :remote => true,:confirm => "Are you Sure..", :class => 'button medium red'%>
+                </span>
+              <% end %>
+              &nbsp&nbsp
+              <% if !post.favorite.present? || !current_user.favorite_for(post).present? %>
+                <%= link_to image_tag("/assets/favorite_icon.png", :width => '10px', :height => '10px')+'Favorite',favourite_user_posts_path(post.id),:remote => true,:method => 'post' %>
+              <% elsif post.favorite.status == true %>
+                <%= link_to image_tag("/assets/favorite_icon.png", :width => '10px', :height => '10px')+'Favorited',update_favourite_user_posts_path(post.id),:remote => true,:method => 'put', :style => 'color: #FF9B00;' %>
+              <%elsif post.favorite.status == false%>
+                <%= link_to image_tag("/assets/favorite_icon.png", :width => '10px', :height => '10px')+'Favorite',update_mark_favourite_user_posts_path(post.id),:remote => true,:method => 'put' %>
+              <% end %>
+            </span>
+            <script>
+              $("#post_<%= post.id%>").hover(function(){
+                $("#link_<%= post.id %>").show();
+              })
+
+              $("#post_<%= post.id%>").mouseleave(function(){
+                $("#link_<%= post.id %>").hide();
+              })
+            </script>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <span style="color: red;font-size: 15px;left: 300px;position: relative;">No <%=  params[:post].present? ? @header : "Posts" %>.</span>
+  <% end %>
+</div>
+<% if @posts.total_pages > @posts.current_page %>
+  <div id="more_posts_link">
+    <input type="hidden" value="<%= @posts.current_page+1 %>" id="posts_page" />
+  </div>
+<% end %>
+<div id='ajax' style='z-index:1000000;width:500px;height:120px;display: none;'>
+  <div style="float:left;clear:both;">
+    <div class="post" style="height: 72px;">
+      <img alt=""  src="/assets/bigger_spinner.gif" id = "ajax-loader" /><br />
+    </div>
+  </div>
+</div>

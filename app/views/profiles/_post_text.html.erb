@@ -1,0 +1,22 @@
+<% if post.receiver.present? %>
+  <% if post.body > post.body.slice(0..300) %>
+    <span id="pos_<%= post.id%>"><%= User.find_by_username(post.body.split(" ")[0]).present? ? ((link_to post.body.split(" ")[0], profile_path(:school_name => params[:school_id] ? params[:school_id] : current_user.school_admin.school,:id =>post.receiver.id))+' '+post.body.slice(post.body.split(" ")[0].length..post.body.slice(0..300).length)) : post.body.slice(0..300) %><%= link_to_function "...", "expand(#{post.id})" %><br /></span>
+  <% else %>
+      <%= User.find_by_username(post.body.split(" ")[0]).present? ? ((link_to post.body.split(" ")[0], profile_path(:school_name => params[:school_id] ? params[:school_id] : current_user.school_admin.school,:id =>post.receiver.id))+' '+post.body.slice(post.body.split(" ")[0].length..post.body.length)) : post.body %><br />
+    <% end %>
+  <div id="expa_<%= post.id %>"  style="display:none;">
+    <%= User.find_by_username(post.body.split(" ")[0]).present? ? ((link_to post.body.split(" ")[0], profile_path(:school_name => params[:school_id] ? params[:school_id] : current_user.school_admin.school,:id =>post.receiver.id))+' '+post.body.slice(post.body.split(" ")[0].length..post.body.length)) : post.body %>
+  </div>
+<% else %>
+  <% if post.body > post.body.slice(0..300) %>
+    <span id="pos_<%= post.id%>"><%= ((post.body.slice(0..300))) %><%= link_to_function "...", "expand(#{post.id})" %><br /></span>
+  <% else %>
+      <%= ((post.body)) %><br />
+    <% end %>
+  <div id="expa_<%= post.id %>"  style="display:none;">
+    <%=((post.body)) %>
+  </div>
+<% end %>
+<% if post.document.present? %>
+  <%= link_to image_tag(post.document.url(:original),:width => '50px;', :height => '50px;'), post.document.url %>
+<% end %>

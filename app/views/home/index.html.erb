@@ -1,0 +1,55 @@
+<div class="launch_background">
+  <div class="container_for_boxes">
+
+    <div class="instructor_box">
+      <%= image_tag("/assets/instructor.png", :width => '300px', :height => '300px') %>
+      <%= link_to_function image_tag('/assets/instructor_login_button.png'), 'student_login("teacher")', :class => 'instructor_login_button',:style => "position:relative;top:20px;" %>
+    </div>
+
+    <div class="student_box">
+      <%= image_tag("/assets/student.png", :width => '300px', :height => '300px') %>
+      <%= link_to_function image_tag('/assets/student_login_button.png'), 'student_login("student")', :class => 'student_login_button',:style => "position:relative;top:20px;" %>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="main">
+    <div class="row feature-blocks">
+      <div class="span3">
+        <h3>SAVE TIME</h3>
+        <p class="grey_text">EduPost saves educators time by connecting students to everything they want to know. Now students can get their questions answered by classmates, not just instructors.</p>
+        <br/>
+      </div>
+      <div class="span3">
+        <h3>TRACK PARTICIPATION</h3>
+        <p class="grey_text">With EduPost, educators can track classroom participation, measure student engagement.</p>
+        <br/>
+      </div>
+      <div class="span3">
+        <h3>COLLABORATE</h3>
+        <p class="grey_text">Educators can easily post assignments, provide one-on-one help, host discussions, and archive important questions or conversations.</p>
+        <br/>
+      </div>
+    </div>
+
+    <div class="row feature-blocks">
+      <div class="span3">
+        <%#= image_tag("/assets/marshall.png", :width => '220px',:height => '60px') %>
+      </div>
+      <div class="span3">
+        <%#= image_tag("/assets/annenberg.png", :width => '220px',:height => '60px') %>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    	EduPosts &#169; 2012 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    <%= link_to "About", "/", :class => "grey_text" %> &#183;
+    <%= link_to "Help", "http://support.eduposts.com/", :class => "grey_text" %> &#183;
+    <%#= link_to "Terms", "http://eduposts.com/home/terms_of_service", :class => "grey_text" %>
+    <%#= link_to "Privacy", "http://eduposts.com/home/privacy_policy", :class => "grey_text" %>
+    <%= link_to "Blog", "http://blog.eduposts.com", :class => "grey_text",:target => "_blank" %> &#183;
+    <%= link_to image_tag("/assets/twitter_icon.png",:height => "30px", :width => "30px"), "https://twitter.com/iedupost", :target => "blank" %>&nbsp&#183;&nbsp
+    <%= link_to image_tag("/assets/facebook_icon.png",:height => "30px", :width => "30px"), " https://www.facebook.com/edupost", :target => "blank" %>&nbsp&#183;&nbsp
+    <%= link_to image_tag("/assets/email_icon.png",:height => "30px", :width => "30px"), "mailto:andrew@eduposts.com" %>&nbsp&nbsp
+  </div>
+</div>
