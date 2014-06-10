@@ -9,6 +9,13 @@ class User < ActiveRecord::Base
   has_many :faqs, :dependent => :destroy
   has_many :favorites, :dependent => :destroy
   has_many :importent_links, :dependent => :destroy
+  has_many :studentclasses, :dependent => :destroy
+  has_many :cls, :through=> :studentclasses 
+ 
+  has_many :teacherclasses
+  has_many :cls,:through=>:teacherclasses
+  has_many :subjects,:through=>:teacherclasses
+  
   attr_accessor :school
   accepts_nested_attributes_for :readings,  :allow_destroy  => true,:reject_if => :all_blank
   accepts_nested_attributes_for :faqs,  :allow_destroy  => true,:reject_if => :all_blank

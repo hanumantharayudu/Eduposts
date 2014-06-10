@@ -1,0 +1,46 @@
+<table class="table table-striped" style="background:white;">
+  <tr>
+    <th>
+      Class Name
+    </th>
+    <th>
+      Subject Name
+    </th>
+    <th>
+      Status
+    </th>
+    <th>
+      Teacher Name
+    </th>
+  </tr>
+  <% @subjects.each do |sub| %>
+    <tr>
+      <td>
+        <%= @class.class_name %>
+      </td>
+
+      <td>
+        <%= sub.subject_name %>
+      </td>
+      <td>
+        <%= sub.assign ? sub.assign : "Not assigned" %>
+      </td>
+      <td>
+        <%= sub.teacherclasses.first ? sub.teacherclasses.first.user.first_name : "nil" %>
+      </td>
+    <% end %>
+  </tr>
+</table>
+
+
+
+
+<style>
+  .table th, .table td {
+    border-top: 1px solid #DDDDDD;
+    line-height: 20px;
+    padding: 8px;
+    text-align: center;
+    vertical-align: top;
+  }
+</style>

@@ -101,6 +101,8 @@ GEM
       activesupport (= 3.2.13)
       bundler (~> 1.0)
       railties (= 3.2.13)
+    rails3-jquery-autocomplete (1.0.14)
+      rails (>= 3.0)
     railties (3.2.13)
       actionpack (= 3.2.13)
       activesupport (= 3.2.13)
@@ -160,6 +162,7 @@ DEPENDENCIES
   prototype-rails (~> 3.2.1)
   quiet_assets
   rails (= 3.2.13)
+  rails3-jquery-autocomplete
   remotipart (~> 1.0)
   sass-rails (~> 3.2.3)
   therubyracer

@@ -3,5 +3,7 @@ class Cls < ActiveRecord::Base
   belongs_to :school_admin
   has_many :subjects, :dependent => :destroy
   has_many :teacherclasses, :dependent => :destroy
+  has_many :studentclasses, :dependent => :destroy
+  has_many :users, :through=>:studentclasses
   accepts_nested_attributes_for :subjects,  :allow_destroy  => true,:reject_if => :all_blank
 end

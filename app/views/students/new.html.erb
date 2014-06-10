@@ -16,6 +16,10 @@
         <td><%= validation_error(@student.errors["email"])%></td>
       </tr>
       <tr>
+        <td valign="top">Class Name:</td>
+        <td><%= select_tag :class_id,  options_for_select([["Select", ""]] + Cls.all.map{|ic| [ic.class_name,ic.id]}) %></td>
+      </tr>
+      <tr>
         <td></td>
         <td><%= f.submit "Send Invitation", :class => 'btn'%></td>
       </tr>

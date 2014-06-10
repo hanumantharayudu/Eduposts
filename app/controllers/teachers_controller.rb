@@ -1,6 +1,6 @@
 class TeachersController < ApplicationController
   layout :get_school_layout, :except => ['edit', 'update']
-
+   
   def new
     @school = SchoolAdmin.find(params[:school_id])
     @teacher = @school.users.new

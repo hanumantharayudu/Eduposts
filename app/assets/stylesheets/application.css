@@ -1,3 +1,5 @@
+@import 'jquery-ui.css';
+
 .pagination ul{
     margin: 0;
     padding: 0;

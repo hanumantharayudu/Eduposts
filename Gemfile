@@ -14,6 +14,7 @@ gem 'will_paginate', '>= 3.0.pre'
 gem 'quiet_assets'
 gem 'thin'
 gem 'aws-sdk'
+gem 'rails3-jquery-autocomplete'
 
 
 group :production do

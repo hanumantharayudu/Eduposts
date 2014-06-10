@@ -1,0 +1,32 @@
+<table class="table table-striped" style="background:white;">
+  <tr>
+    <th>
+      Subject Name
+    </th>
+    <th>
+      Teacher Name
+    </th>
+  </tr>
+  <% @teacher_subjects.each do |ts| %>
+    <tr>
+      <td>
+        <%= ts.subject.subject_name %>
+      </td>
+      <td>
+        <%= ts.user.first_name %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to "Back to Students",school_students_path(current_school_admin),:class=>"btn btn-default" %>
+
+<style>
+  .table th, .table td {
+    border-top: 1px solid #DDDDDD;
+    line-height: 20px;
+    padding: 8px;
+    text-align: center;
+    vertical-align: top;
+  }
+</style>

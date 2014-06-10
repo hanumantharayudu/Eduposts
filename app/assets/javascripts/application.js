@@ -11,7 +11,10 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
+//= require autocomplete-rails
 //= require jquery_ujs
+
+
 
 // autoScroll
 $(document).ready(function() {

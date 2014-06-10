@@ -1,5 +1,6 @@
 class ClsesController < ApplicationController
   layout :get_school_layout, :except => ['edit', 'update']
+  autocomplete :subject, :subject_name
   
   def new
     @school = SchoolAdmin.find(params[:school_id])
@@ -23,6 +24,16 @@ class ClsesController < ApplicationController
   def index
     @school = SchoolAdmin.find(params[:school_id])
     @classes = Cls.where("school_admin_id = '#{current_school_admin.id}'").all
+  end
+  
+  def cls_subjects
+    @class = Cls.find(params[:clse_id])
+    if !@class.blank?
+      @subjects = @class.subjects.all
+    end
+    respond_to do |format|
+      format.js
+    end
   end
   
   

@@ -71,12 +71,18 @@ WebApp::Application.routes.draw do
   end
 
   resources :schools do
-    resources :clses 
+    resources :clses do
+      get :cls_subjects
+      collection do
+        get :autocomplete_subject_subject_name
+      end
+    end
     resources :students do
       member do
         get :followers
         get :following
         get :posts
+        get :display_class
       end
     end
     resources :teachers do

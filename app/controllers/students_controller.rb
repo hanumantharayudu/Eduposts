@@ -11,6 +11,8 @@ class StudentsController < ApplicationController
     @student.password = 'ashok123'
     @student.password_confirmation = 'ashok123'
     if @student.save
+      @student_class = Studentclass.create(:user_id=>@student.id,:cls_id=>params[:class_id],:school_admin_id=>@school.id)
+      @student_class.save
       @student.update_attribute(:role, 'student')
       @student.generate_password_reset_code
       flash[:notice] = "Sccessfully Send invitation to student"
@@ -33,7 +35,13 @@ class StudentsController < ApplicationController
       render :text => 'Invalid Token.',:layout => false
     end
   end
-
+ 
+  def display_class
+    @school = SchoolAdmin.find(params[:school_id])
+    @student = User.find(params[:id])
+    @teacher_subjects = Teacherclass.where("cls_id = '#{params[:class_id]}'")
+  end
+  
   def username
     @user = '@'+ params[:username]
     @user_name = current_user.username if current_user

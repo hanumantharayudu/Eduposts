@@ -8,6 +8,7 @@
       <th>User Name</th>
       <th>Status</th>
       <th>Role</th>
+      <th>Class Name</th>
       <th>Actions</th>
     </tr>
     <% for school in @students %>
@@ -34,13 +35,12 @@
           <% end %>
         </td>
         <td><%= school.role %></td>
+        <td><%= link_to school.studentclasses.first ? school.studentclasses.first.cls.class_name : "Nil", display_class_school_student_path(@school,school,:class_id =>school.studentclasses.first ? school.studentclasses.first.cls.id : '')%></td>
         <td>
           <% if school.reset_password_token == nil %>
             <%= link_to "View Posts", posts_school_student_path(@school, school),:class=>"btn btn-primary"%> |
           <% end %>
-          <% if school.role == 'student' %>
-            <%= link_to "Delete", student_path(school), :remote => true, :method => :delete, :class=>"btn btn-danger",:confirm => "Are You Sure.." %>
-          <% end %>
+          <%= link_to "Delete", student_path(school), :remote => true, :method => :delete, :class=>"btn btn-danger",:confirm => "Are You Sure.." %> 
         </td>
       </tr>
     <% end %>
@@ -55,6 +55,9 @@
     color:white;
   }
   .btn-primary:hover{
+    color:white;
+  }
+  .btn-success:hover{
     color:white;
   }
 

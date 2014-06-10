@@ -2,7 +2,7 @@
 
 <div class="column">
     <p> <label> Class: </label>
-      <%= select_tag :class_id,  options_for_select([["Select", ""]] + Cls.where("status is null").map{|ic| [ic.class_name,ic.id]}.uniq), :onchange => "GetSubjects(this.value)" %>
+      <%= select_tag :class_id,  options_for_select([["Select", ""]] + Cls.where("status is null").map{|ic| [ic.class_name,ic.id]}), :onchange => "GetSubjects(this.value)" %>
     </p>
   </div>
   <div class="column" id="subjects">

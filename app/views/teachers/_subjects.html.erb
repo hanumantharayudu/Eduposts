@@ -1,3 +1,3 @@
 <p> <label> Subject: </label>
-  <%= select_tag "class[subject_id]", options_for_select([["Select", ""]] + subjects.map{|ic| [ic.subject_name,ic.id]}.uniq) %>
+  <%= select_tag "class[subject_id]", options_for_select([["Select", ""]] + subjects.map{|ic| [ic.subject_name,ic.id]}) %>
 </p>
