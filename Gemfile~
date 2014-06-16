@@ -15,7 +15,7 @@ gem 'quiet_assets'
 gem 'thin'
 gem 'aws-sdk'
 gem 'rails3-jquery-autocomplete'
-gem 'bootstrap-multiselect-rails'
+
 
 group :production do
   gem 'therubyracer-heroku', '0.8.1.pre3' # you will need this too

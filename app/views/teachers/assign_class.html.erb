@@ -1,14 +1,23 @@
 <%= form_for @assign_class, :url=>assign_teachercls_school_teacher_path(@school.id,@user.id) do |f| %>
 
-<div class="column">
+  <div class="column">
     <p> <label> Class: </label>
-      <%= select_tag :class_id,  options_for_select([["Select", ""]] + Cls.where("school_admin_id = #{current_school_admin.id} AND status is null").map{|ic| [ic.class_name,ic.id]}), :onchange => "GetSubjects(this.value)" %>
+      <%= select_tag :class_id,  options_for_select([["Select", ""]] + Cls.where("status is null").map{|ic| [ic.class_name,ic.id]}), :onchange => "GetSubjects(this.value)" %>
     </p>
   </div>
+
   <div class="column" id="subjects">
     <p> <label> Subject: </label>
-      <%=  select_tag :subject, options_for_select(["Select", ""]) %>
-    </p>
+      <%=  select_tag :subjects,options_for_select(["Select", ""])%>
+      </p>
   </div>
-<%= f.submit "Save" %>
+  <%= f.submit "Save" %>
 <% end %>
+
+
+
+
+
+
+
+

@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require autocomplete-rails
-//= require bootstrap-multiselect
 //= require jquery_ujs
 
 

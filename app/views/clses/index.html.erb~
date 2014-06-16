@@ -4,22 +4,22 @@
     <tr>
       <th>Class Name</th>
       <th>Subjects Details</th>
-      <th>Actions</th>
+ <th>Actions</th>
     </tr>
     <% for cls in @classes %>
       <tr>
         <td><%= cls.class_name %></td>
-        <td><%= link_to "Display Subjects", school_clse_cls_subjects_path(:school_id => current_school_admin.id,:clse_id=>cls.id),:remote=>true,:class=>"btn btn-success" %></td>
-        <td><%= link_to "EDIT", edit_school_clse_path(:school_id => current_school_admin.id,:id =>cls.id),:class=>"btn btn-info" %>|
-          <%= link_to "DELETE",school_clse_path(:school_id => current_school_admin.id,:id =>cls.id),:method=>:delete,:data=> { :confirm=> 'Are you sure?' },:class=>"btn btn-danger"%></td>
+          <td><%= link_to "Display Subjects", school_clse_cls_subjects_path(:school_id => current_school_admin.id,:clse_id=>cls.id),:remote=>true,:class=>"btn btn-success" %></td>
+ <td><%= link_to "edit", edit_school_clse_path(:school_id => current_school_admin.id,:id =>cls.id),:class=>"btn btn-info" %>|
+      <%= link_to "delete",school_clse_path(:school_id => current_school_admin.id,:id =>cls.id),:method=>:delete,:data=> { :confirm=> 'Are you sure?' },:class=>"btn btn-danger"%></td>
       </tr>
     <% end %>
   </table>
 <% else %>
   <span style="color: red;font-size: 15px;left: 166px;position: relative;top: 42px;">No Classes.</span>
 <% end %>
-
-<div id="cls_subjects"></div>
+  
+  <div id="cls_subjects"></div>
 <%= link_to "Back to Dashboard",school_path(@school),:class=>"btn btn-default" %>
 
 <style>

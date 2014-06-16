@@ -1,0 +1,35 @@
+<div class="form-group">
+  <label class="sr-only" for="exampleInputEmail2">ClassName</label>
+  <%= f.text_field :class_name,:style=>"margin-left:15px;margin-bottom:7px;" %>
+</div>
+<div class="controls">
+  <%= f.fields_for :subjects, :html=>{:multipart => true} do |builder| %>
+    <% if builder.object.assign != "Assigned" %>
+      <label class="sr-only" for="exampleInputPassword2">Subject Name</label>
+      <%= builder.autocomplete_field :subject_name,autocomplete_subject_subject_name_school_clses_path %>
+    <% end %>
+  <% end %>
+      
+  <div class="controls" style="margin-top: -28px;margin-left: 365px;">
+    <% if params[:action] == "new"%>
+    <%= link_to_add_fields image_tag("add.jpeg"), f,:subjects %>
+  <%  end %>
+  </div>
+    
+</div>
+<div class="controls" style="margin-top: 50px;">
+  <%= f.submit "Save",:class=>"btn btn-default" %>
+</div>
+
+<style>
+  .dropdown-menu .active > a, .dropdown-menu .active > a:hover {
+    background-repeat: repeat-x;
+    color: #ffffff;
+    outline: 0 none;
+    text-decoration: none;
+  }
+</style>
+
+
+
+

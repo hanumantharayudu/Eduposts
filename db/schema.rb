@@ -104,16 +104,13 @@ ActiveRecord::Schema.define(:version => 20140614090801) do
 
   create_table "importent_links", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "school_admin_id"
-    t.integer  "cls_id"
-    t.integer  "subject_id"
     t.text     "title"
     t.text     "links"
-    t.string   "link_file_name"
-    t.string   "link_content_type"
-    t.integer  "link_file_size"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.string   "link_document_file_name"
+    t.string   "link_document_content_type"
+    t.integer  "link_document_file_size"
   end
 
   create_table "markreports", :force => true do |t|
@@ -136,9 +133,6 @@ ActiveRecord::Schema.define(:version => 20140614090801) do
 
   create_table "readings", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "school_admin_id"
-    t.integer  "cls_id"
-    t.integer  "subject_id"
     t.text     "title"
     t.text     "reading"
     t.string   "read_document_file_name"
