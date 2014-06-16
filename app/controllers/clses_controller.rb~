@@ -1,5 +1,5 @@
 class ClsesController < ApplicationController
-  layout :get_school_layout
+  layout :get_school_layout, :except => ['edit', 'update']
   autocomplete :subject, :subject_name
   
   def new
@@ -24,19 +24,18 @@ class ClsesController < ApplicationController
   def edit
     @school = SchoolAdmin.find(params[:school_id])
     @class = Cls.find(params[:id])
-    
   end
  
   def update
     @school = SchoolAdmin.find(params[:school_id])
     @class = Cls.find(params[:id])
-    if  @class.update_attributes(params[:cls])
+    if  @class.update_attributes(params[:class])
       redirect_to school_path(@school)
     else
       render 'edit'
     end
   end
- 
+  
 
   def index
     @school = SchoolAdmin.find(params[:school_id])
@@ -54,8 +53,8 @@ class ClsesController < ApplicationController
   end
   
   def destroy
-    @class = Cls.find(params[:id])
-    if @class.destroy
+    @cls = Cls.find(params[:id])
+    if @cls.destroy
       flash[:notice] = "Successfully deleted this class"
       redirect_to  school_clses_path
     end

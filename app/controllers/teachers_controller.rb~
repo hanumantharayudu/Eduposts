@@ -77,16 +77,18 @@ class TeachersController < ApplicationController
   end
   
   def assign_teachercls
-  
+    #@assign_class = Teacherclass.create(params[:teacher_class])
+    # @assign_class.user_id = params[:id]
+    puts "->->"
     puts params[:class_id]
-   
+    puts "->->->->->"
     puts params[:user_id]
-   
+    #@assign_class.subject_id = params[:class][:subject_id]
     if params[:subject_ids]
       params[:subject_ids].compact.each do |ami|
         @class = Teacherclass.find_by_cls_id_and_subject_id(params[:class_id],ami)
         if !@class.present? and ami.present? 
-    @subject= Teacherclass.new(:cls_id => params[:class_id],:subject_id => ami,:school_admin_id => params[:school_id],:user_id => params[:id]) 
+          @subject= Teacherclass.new(:cls_id => params[:class_id],:subject_id => ami,:school_admin_id => params[:school_id],:user_id => params[:id]) 
                  @subject.save
           @subject.subject.update_attribute(:assign, "Assigned")
         end

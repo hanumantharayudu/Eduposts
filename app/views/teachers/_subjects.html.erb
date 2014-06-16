@@ -1,3 +1,11 @@
+
 <p> <label> Subject: </label>
-  <%= select_tag "class[subject_id]", options_for_select([["Select", ""]] + subjects.map{|ic| [ic.subject_name,ic.id]}) %>
+  <%= select_tag "subject_ids[]", options_for_select([["Select", ""]] + subjects.map{|ic| [ic.subject_name,ic.id]}),{:class=>'multiselect-all',:multiple=>'true'} %>
 </p>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#subject_ids_').multiselect();
+  });
+  
+</script>
+

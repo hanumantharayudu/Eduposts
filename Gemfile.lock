@@ -33,6 +33,8 @@ GEM
       json (~> 1.4)
       nokogiri (>= 1.4.4)
     bcrypt (3.1.7)
+    bootstrap-multiselect-rails (0.0.4)
+      railties (>= 3.2.0, < 5.0)
     builder (3.0.4)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -152,6 +154,7 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk
+  bootstrap-multiselect-rails
   coffee-rails (~> 3.2.1)
   devise
   friendly_id (~> 4.0.1)

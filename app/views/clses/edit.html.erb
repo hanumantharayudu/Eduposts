@@ -1,0 +1,8 @@
+<h4>EDIT</h4>
+<%= form_for(@class, :url => school_clse_path(@school,@class), :html => {:class => 'form-inline'}, :method => :put) do |f| %>
+  <%=render :partial => "form", :locals =>{:f => f }%>
+<% end %>
+
+
+
+
