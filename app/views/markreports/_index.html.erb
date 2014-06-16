@@ -1,0 +1,30 @@
+<h4><%= @student_name.first_name.capitalize  %> Mark Reports</h4>
+<table class="table table-striped" style="background:white;">
+  <tr>
+    <th>Pass Marks</th>
+    <th>Marks Obtained</th>
+    <th>Total Marks</th>
+    <th>Comment</th>
+    <th>Actions</th>
+  </tr>
+  <% @marks_reports.each do |m| %>
+    <tr>
+      <td>
+        <%= m.min_marks %>
+      </td>
+      <td>
+        <%= m.max_marks %>
+      </td>
+      <td>
+        <%= m.total_marks %>
+      </td>
+      <td>
+        <%= m.comment %>
+      </td>
+      <td>
+        <%= link_to "Edit",edit_class_markreport_path(@school_name,@class_id,m.id,:subject_id=>@subject_id,:user_id=>@user_id,:receiver_id => @receiver_id),:remote=>true %> |
+        <%= link_to "Delete",class_markreport_path(@school_name,@class_id,m.id,:subject_id=>@subject_id,:user_id=>@user_id,:receiver_id => @receiver_id),:method=> "delete" ,:confirm => "Are you sure?"%>
+      </td>
+    </tr>
+  <% end %>
+</table>

@@ -1,0 +1,27 @@
+<div class="modal-body">
+  <ul class="errors"></ul>
+  <%= hidden_field_tag :user_id,@user_id %>
+  <%= hidden_field_tag :school_admin_id,@school_admin_id %>
+  <%= hidden_field_tag :class_id,@class_id %>
+  <%= hidden_field_tag :subject_id,@subject_id %>
+  <%= hidden_field_tag :receiver_id,@receiver_id %>
+
+  <div class="control-group">
+    <label class="control-label"> Attendence :</label>
+    <div class="controls">
+      <label class="radio">
+        <%= f.radio_button :attendance_status,"present"%> Present
+      </label>
+      <label class="radio">
+        <%= f.radio_button :attendance_status,"absent"  %> Absent
+      </label>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <%= f.submit class: "btn btn-primary" %>
+    <%= link_to "Cancel", "#", class: "btn", data: {dismiss: "modal"} %>
+ </div>
+
+
+

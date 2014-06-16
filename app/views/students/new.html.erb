@@ -17,7 +17,7 @@
       </tr>
       <tr>
         <td valign="top">Class Name:</td>
-        <td><%= select_tag :class_id,  options_for_select([["Select", ""]] + Cls.all.map{|ic| [ic.class_name,ic.id]}) %></td>
+        <td><%= select_tag :class_id,  options_for_select([["Select", ""]] + Cls.where("school_admin_id = #{current_school_admin.id}").map{|ic| [ic.class_name,ic.id]}) %></td>
       </tr>
       <tr>
         <td></td>

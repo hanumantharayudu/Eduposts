@@ -6026,8 +6026,8 @@ input.compose_new_post {
     border-radius: 0px;
     border-top: none;
     border-bottom: 1px solid lightgray;
-    border-left: none
-        border-right: none;
+    border-left: none;
+    border-right: none;
     box-shadow: none;
     background-color: #f9f9f9;
     color: rgb(0, 132, 180);

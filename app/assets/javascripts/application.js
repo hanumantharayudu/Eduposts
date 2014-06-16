@@ -485,3 +485,8 @@ function GetSubjects(sub) {
         }
     });
 }
+
+function graph_id(th) {
+    $(".side_nav_box").find('button').removeClass('active_button');
+    $(th).find("button").addClass('active_button');
+}

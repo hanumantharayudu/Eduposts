@@ -1,5 +1,6 @@
 class Reading < ActiveRecord::Base
-  attr_accessible :title, :reading, :user_id,:read_document
+  attr_accessible :title, :reading, :user_id,:read_document,:_destroy
+  attr_accessor :_destroy
   validates :title, :reading,:presence => true
   belongs_to :user
   has_attached_file :read_document,

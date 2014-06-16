@@ -1,7 +1,9 @@
 class Faq < ActiveRecord::Base
-  attr_accessible :question, :answer, :user_id,:question_document
+  attr_accessible :question, :answer, :user_id,:question_document,:_destroy
+  attr_accessor :question_document_file_name,:_destroy
   validates :question, :answer,:presence => true
   belongs_to :user
+  belongs_to :subject
   has_attached_file :question_document,
     :whiny => false,
     :storage => :s3,

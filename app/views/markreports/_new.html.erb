@@ -1,0 +1,6 @@
+<div class="modal-header">
+  <h3>New Mark List</h3>
+</div>
+<%= form_for @mark, :url=>class_markreports_path(@school_name.school_name,:class_id => @class_id), :html=> { :class=> "form-horizontal", :style=> "display:inline;" } do |f| %> 
+  <%= render :partial=>'form',:locals => {:f=>f} %>
+<% end %>

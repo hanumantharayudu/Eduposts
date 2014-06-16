@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140605150530) do
+ActiveRecord::Schema.define(:version => 20140614090801) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -32,6 +32,18 @@ ActiveRecord::Schema.define(:version => 20140605150530) do
   add_index "admins", ["email"], :name => "index_admins_on_email", :unique => true
   add_index "admins", ["reset_password_token"], :name => "index_admins_on_reset_password_token", :unique => true
 
+  create_table "attendances", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "cls_id"
+    t.integer  "subject_id"
+    t.integer  "receiver_id"
+    t.integer  "school_admin_id"
+    t.string   "attendance_status"
+    t.date     "today_date"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
   create_table "cls", :force => true do |t|
     t.integer  "school_admin_id"
     t.string   "class_name"
@@ -51,13 +63,16 @@ ActiveRecord::Schema.define(:version => 20140605150530) do
 
   create_table "faqs", :force => true do |t|
     t.integer  "user_id"
+    t.integer  "school_admin_id"
+    t.integer  "cls_id"
+    t.integer  "subject_id"
     t.text     "question"
     t.text     "answer"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
-    t.string   "question_document_file_name"
-    t.string   "question_document_content_type"
-    t.integer  "question_document_file_size"
+    t.string   "question_file_name"
+    t.string   "question_content_type"
+    t.integer  "question_file_size"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
   end
 
   create_table "favorites", :force => true do |t|
@@ -89,17 +104,41 @@ ActiveRecord::Schema.define(:version => 20140605150530) do
 
   create_table "importent_links", :force => true do |t|
     t.integer  "user_id"
+    t.integer  "school_admin_id"
+    t.integer  "cls_id"
+    t.integer  "subject_id"
     t.text     "title"
     t.text     "links"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
-    t.string   "link_document_file_name"
-    t.string   "link_document_content_type"
-    t.integer  "link_document_file_size"
+    t.string   "link_file_name"
+    t.string   "link_content_type"
+    t.integer  "link_file_size"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  create_table "markreports", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "cls_id"
+    t.integer  "subject_id"
+    t.integer  "receiver_id"
+    t.integer  "school_admin_id"
+    t.integer  "min_marks"
+    t.integer  "max_marks"
+    t.integer  "total_marks"
+    t.string   "result"
+    t.text     "comment"
+    t.string   "markrepot_file_name"
+    t.string   "markrepot_content_type"
+    t.integer  "markrepot_file_size"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
   end
 
   create_table "readings", :force => true do |t|
     t.integer  "user_id"
+    t.integer  "school_admin_id"
+    t.integer  "cls_id"
+    t.integer  "subject_id"
     t.text     "title"
     t.text     "reading"
     t.string   "read_document_file_name"
@@ -164,6 +203,17 @@ ActiveRecord::Schema.define(:version => 20140605150530) do
     t.integer  "school_admin_id"
     t.integer  "cls_id"
     t.integer  "subject_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "teachertweets", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "school_admin_id"
+    t.integer  "receiver_id"
+    t.integer  "subject_id"
+    t.integer  "cls_id"
+    t.integer  "tweet_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end

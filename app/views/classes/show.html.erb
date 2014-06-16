@@ -9,39 +9,10 @@
     </div>
 
 
-    <div class="profile_box_right with_options">
-      <% if current_user.role == 'teacher' %>
-        <%= link_to 'Edit Class', edit_class_path(:school_name => current_user.school_admin.school,:id =>@user.id), :class => 'btn' %>
-        <br/>
-        <div class="roster_num"><%= link_to "Roster", roster_class_path(:school_name => current_user.school_admin.school,:id =>@user.id), :style => 'color: gray;' %></div>
-      <% else %>
-        <div class="btn-group other_profile_options_button">
-          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-            <%= image_tag("/assets/dude.png", :width => '15px;', :height => '20px;') %>
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Post to <%= @user.username %></a></li>
-          </ul>
-        </div>
-
-        <div class="roster_num">Classmates</div>
-      <% end %>
-    </div>
     <%= class_profile_picture %>
-    <h2 class="profile_name"><%= @user.class_name.present? ? @user.class_name : "Class" %></h2>
+    <h2 class="profile_name"><%= @subject.subject_name %></h2>
     <br/>
     <p class="bio" style="width: 800px;"><%= @user.class_description.present? ? @user.class_description : " " %></p>
-    <div class="class_content_row">
-      <% if @user.syllabus_link.present? %>
-        <%= link_to "Syllabus", @user.syllabus_link.url, :class => "grey_text", :style => 'color: gray;' %> &#183;
-      <% else %>
-        <%= @user.syllabus.present? ? (link_to "Syllabus",@user.syllabus, :class => "grey_text", :style => 'color: gray;', :target => '_blank' )  : (link_to "Syllabus"," ", :class => "grey_text", :style => 'color: gray;') %>&#183;
-      <% end %>
-      <%= link_to_function "FAQ's", "faq('#{@user.school_admin.school}',#{@user.id})", :class => "grey_text", :style => 'color: gray;' %> &#183;
-      <%= link_to_function "Readings", "reading('#{@user.school_admin.school}',#{@user.id})", :class => "grey_text", :style => 'color: gray;' %> &#183;
-      <%= link_to_function "Important Links", "link('#{@user.school_admin.school}',#{@user.id})", :class => "grey_text", :style => 'color: gray;' %>
-    </div>
 
   </div>
 
@@ -51,9 +22,16 @@
     <div class="span4">
 
       <div class="box_l1_hp side_nav_box">
-        <%= link_to "<button class='side_nav_button class active_button' type=button'>Posts<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe, class_path(:school_name => current_user.school_admin.school,:id =>@user.id) %>
-        <%= link_to "<button class='side_nav_button announcements' type=button'>Announcements<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe, announcements_notification_path(:school_name => current_user.school_admin.school,:id =>@user.id,:post => "announcement"), :remote => true %>
-        <%= link_to "<button class='side_nav_button assignments' type=button'>Assignments<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe, announcements_notification_path(:school_name => current_user.school_admin.school,:id =>@user.id,:post => "assignment"), :remote => true %>
+        <%= link_to "<button class='side_nav_button posts' type=button'>Posts<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe, new_class_teachertweet_path(:school_name => current_user.school_admin.school,:class_id =>@class.id,:subject_id=>@subject.id,:user_id=>current_user.id,:post => "post"),:remote => true, :onclick => 'graph_id(this)' %>
+        <%= link_to "<button class='side_nav_button announcements' type=button'>Announcements<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe, new_class_teachertweet_path(:school_name => current_user.school_admin.school,:class_id =>@class.id,:subject_id=>@subject.id,:user_id=>current_user.id,:post => "announcement"), :remote => true, :onclick => 'graph_id(this)'  %>
+        <%= link_to "<button class='side_nav_button assignments' type=button'>Assignments<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe,new_class_teachertweet_path(:school_name => current_user.school_admin.school,:class_id =>@class.id,:subject_id=>@subject.id,:user_id=>current_user.id,:post => "assignment"),:remote => true, :onclick => 'graph_id(this)' %>
+        <%= link_to "<button class='side_nav_button posts for_notifications' type=button'>Roster<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe, roster_class_path(:school_name => current_user.school_admin.school,:id =>@class.id) %>
+        <%= link_to "<button class='side_nav_button posts for_notifications' type=button'>FAQ's<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe, new_class_faq_path(:school_name => current_user.school_admin.school,:class_id =>@class.id,:subject_id=>@subject.id,:user_id=>current_user.id), :remote => true, :onclick => 'graph_id(this)'  %>
+        <%= link_to "<button class='side_nav_button posts for_notifications' type=button'>Readings<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe, new_class_reading_path(:school_name => current_user.school_admin.school,:class_id =>@class.id,:subject_id=>@subject.id,:user_id=>current_user.id), :remote => true, :onclick => 'graph_id(this)'  %>
+        <%= link_to "<button class='side_nav_button password' type=button'>Important Links<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe, new_class_importent_link_path(:school_name => current_user.school_admin.school,:class_id =>@class.id,:subject_id=>@subject.id,:user_id=>current_user.id), :remote => true, :onclick => 'graph_id(this)'  %>
+        <%= link_to "<button class='side_nav_button password' type=button'>Mark Reports<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe, students_show_class_path(:school_name => current_user.school_admin.school,:class_id =>@class.id,:subject_id=>@subject.id,:user_id=>current_user.id,:students_mark=>"Mark Reports"), :remote => true, :onclick => 'graph_id(this)' %>
+        <%= link_to "<button class='side_nav_button password' type=button'>Students Attendence<img class='arrow' src='/assets/arrow.png' height='10px' width='10px'></button>".html_safe, students_show_class_path(:school_name => current_user.school_admin.school,:class_id =>@class.id,:subject_id=>@subject.id,:user_id=>current_user.id,:students_mark=>"Attendence Reports"), :remote => true, :onclick => 'graph_id(this)' %>
+
       </div>
 
       <div class="box_l2_hp">
@@ -79,6 +57,7 @@
     </div>
 
     <div class="span8" id="posts">
-      <%= render :partial => '/profiles/show' %>
+      Subject Description
     </div>
   </div>
+</div>

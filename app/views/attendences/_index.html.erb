@@ -1,0 +1,17 @@
+<%= @user.first_name.capitalize %> Attendance Report
+<table class="table table-striped" style="background:white;">
+  <tr>
+    <th>Date</th>
+    <th>Attendance</th>
+  </tr>
+  <% @attendence_reports.each do |a| %>
+  <tr>
+      <td>
+        <%= a.created_at.strftime("%d %b. %Y") %>
+      </td>
+      <td>
+        <%= a.attendance_status %>
+      </td>
+  </tr>
+  <% end %>
+</table>

@@ -1,4 +1,6 @@
 <div class="faq_box">
+  <%= hidden_field_tag "subject_id", @subject_id %>
+   <%= hidden_field_tag "user_id", @user_id %>
   <%= f.text_field :title, :placeholder => "Title", :class => "faqs_box single_line for_readings" %>
   <div class="btn paperclip" id="file_browse_wrapper"><%= image_tag("/assets/paperclip.png", :width => '15px;', :height => '20px;')%>
     <%= f.file_field :read_document, :id => "file_browse" %>

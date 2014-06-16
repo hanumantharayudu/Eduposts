@@ -1,0 +1,6 @@
+<div class="modal-header">
+  <h3>Today's Attendence</h3>
+</div>
+<%= form_for @attendence, :url=>class_attendences_path(@school_name.school_name,:class_id => @class_id), :html=> { :class=> "form-horizontal", :style=> "display:inline;" } do |f| %> 
+  <%= render :partial=>'form',:locals => {:f=>f} %>
+<% end %>

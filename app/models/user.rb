@@ -61,6 +61,15 @@ class User < ActiveRecord::Base
   belongs_to :school_admin
   has_many :sent_follows, :class_name => "Follow", :foreign_key => :user_id, :dependent => :destroy
   has_many :received_follows, :class_name => 'Follow', :foreign_key => :receiver_id,:dependent => :destroy
+  has_many :given_marks, :class_name => "Markreport",:foreign_key => :user_id, :dependent => :destroy
+  has_many :received_marks, :class_name => "Markreport", :foreign_key => :receiver_id, :dependent => :destroy
+  
+  has_many :given_posts, :class_name => "Teachertweet",:foreign_key => :user_id, :dependent => :destroy
+  has_many :received_posts, :class_name => "Teachertweet", :foreign_key => :receiver_id, :dependent => :destroy
+  
+  has_many :given_attendences, :class_name => "Attendance",:foreign_key => :user_id, :dependent => :destroy
+  has_many :received_attendences, :class_name => "Attendance", :foreign_key => :receiver_id, :dependent => :destroy
+  
   has_many :favorites, :dependent => :destroy
   validate :email_should_not_exist_in_school_admin,:email_should_not_exist_in_admin
   validates_acceptance_of :terms_of_service, :message => "In order to use the service, You must first agree to the terms and conditions", :on => :update

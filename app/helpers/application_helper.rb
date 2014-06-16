@@ -51,4 +51,19 @@ module ApplicationHelper
     end
     link_to_function(name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")")
   end
+  
+  def link_to_add_faq(name,model,partial,mod)
+    # create a new object for the form
+    new_object = model.new
+
+    # get an id for javascript to hook into
+    id = new_object.object_id
+
+    fields = fields_for("#{mod}[#{id}]", new_object) do |builder|
+      render(partial,:f=> builder)
+    end
+    link_to(name, '#', class: "add_fields", data: {id: id, fields: fields.gsub("\n", "")})
+    end
+  
+  
 end

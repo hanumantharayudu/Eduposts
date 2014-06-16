@@ -3,6 +3,10 @@ class ProfilesController < ApplicationController
   layout :get_layout
 
   def index
+    @ps = Teachertweet.where("user_id = #{current_user.id}")
+    puts "====="
+    puts @ps.last.tweet.inspect
+    puts @ps.last.subject.inspect
     @users = User.where("reset_password_token IS NULL and id != '#{current_user.id}'")
     @post = current_user.tweets.new(params[:tweet])
     @posts = Tweet.where("users.school_admin_id = '#{current_user.school_admin_id}'").joins("left join users on users.id = tweets.user_id").order("created_at Desc").paginate :page => params[:page], :per_page => 10

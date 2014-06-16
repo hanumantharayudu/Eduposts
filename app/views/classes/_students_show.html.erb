@@ -1,0 +1,61 @@
+<h4>Students With <%= @students_mark %> </h4>
+<table class="table table-striped" style="background:white;">
+  <tr>
+    <th>Student Name</th>
+    <th>Actions</th>
+  </tr>
+  <% @subject_students.each do |s| %>
+    <tr>
+      <td>
+        <%= s.user.first_name %>
+      </td>
+      <% if @students_mark == 'Mark Reports' %>
+        <td>
+          <%= link_to "Create",new_class_markreport_path(@school_admin_id.id,@class_id,:user_id=>@user_id,:subject_id=>@subject_id,:receiver_id=>s.user.id),:remote=>true %> |
+          <%= link_to "View", class_markreports_path(@school_admin_id.id,@class_id,:user_id=>@user_id,:subject_id=>@subject_id,:receiver_id=>s.user.id),:remote=>true  %>
+        </td>
+      <% else %>
+        <td>
+          <% attendance = Attendance.where(:receiver_id=>s.user.id,:created_at=>Date.today.beginning_of_day..Date.today.end_of_day) %>
+          <% if  attendance.present?   %>
+            Attendance Given |
+          <% else %>
+            <%= link_to "Attendence",new_class_attendence_path(@school_admin_id.id,@class_id,:user_id=>@user_id,:subject_id=>@subject_id,:receiver_id=>s.user.id),:remote=>true %> |
+          <% end %>
+          <%= link_to "Record", class_attendences_path(@school_admin_id.id,@class_id,:user_id=>@user_id,:subject_id=>@subject_id,:receiver_id=>s.user.id),:remote=>true  %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+<div id="student_marks"></div>
+<div id="student_attendance"></div>
+<div id="product-modal" class="modal hide fade"></div>
+<div id="product-modal1" class="modal hide fade"></div>
+
+<style>
+  .btn-danger:hover{
+    color:white;
+  }
+  .btn-primary:hover{
+    color:white;
+  }
+  .btn-success:hover{
+    color:white;
+  }
+
+  .table td  {
+    border-top: 1px solid #DDDDDD;
+    line-height: 20px;
+    padding: 8px;
+    text-align: center;
+    vertical-align: top;
+  }
+  .table th{
+    border-top: 1px solid #DDDDDD;
+    line-height: 20px;
+    padding: 8px;
+    text-align: center;
+    vertical-align: top;
+  }
+</style>

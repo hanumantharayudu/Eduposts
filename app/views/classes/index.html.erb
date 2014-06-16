@@ -1,0 +1,68 @@
+<h4>Classes with Subjects</h4>
+<% if @user.role == 'teacher' %>
+  <% if @subjects.present? %>
+    <table class="table table-striped" style="background:white;">
+      <tr>
+        <th>Class Name</th>
+        <th>Subject Name</th>
+        <th>Actions</th>
+      </tr>
+      <% @subjects.each do |classsubjects| %>
+        <tr>
+          <td><%= classsubjects.cls.class_name  %></td>
+          <td><%= classsubjects.subject.subject_name %></td>
+          <td><%= link_to "Show",class_path(:school_name => current_user.school_admin.school,:id =>classsubjects.cls.id,:subject_id=>classsubjects.subject.id) %> 
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <span style="color: red;font-size: 15px;left: 166px;position: relative;top: 17px;">No Classes.</span>
+  <% end %>
+<% else %>
+
+  <table class="table table-striped" style="background:white;">
+    <tr>
+      <th>Class Name</th>
+      <th>Subject Name</th>
+      <th>Actions</th>
+    </tr>
+    <% @student_subjects.each do |classsubjects| %>
+      <% classsubjects.cls.subjects.each do |s| %>
+        <tr>
+          <td><%= classsubjects.cls.class_name  %></td>
+          <td><%= s.subject_name %></td>
+          <td><%= link_to "Show",student_subject_show_class_path(:school_name => current_user.school_admin.school,:id =>classsubjects.cls.id,:subject_id=>s.id) %> </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+<% end %>
+
+
+<style>
+  .btn-danger:hover{
+    color:white;
+  }
+  .btn-primary:hover{
+    color:white;
+  }
+  .btn-success:hover{
+    color:white;
+  }
+
+  .table td  {
+    border-top: 1px solid #DDDDDD;
+    line-height: 20px;
+    padding: 8px;
+    text-align: center;
+    vertical-align: top;
+  }
+  .table th{
+    border-top: 1px solid #DDDDDD;
+    line-height: 20px;
+    padding: 8px;
+    text-align: center;
+    vertical-align: top;
+  }
+</style>

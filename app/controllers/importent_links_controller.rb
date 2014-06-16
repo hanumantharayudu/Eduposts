@@ -2,28 +2,33 @@ class ImportentLinksController < ApplicationController
   before_filter :is_login?
   layout :get_layout
 
-  def index
-    @user = User.find(params[:class_id])
-    1.times{@user.importent_links.new}
-  end
-
-  def upload_doc
-    @user = User.find(params[:class_id])
-    @user.attributes = params[:user]
-    reject = @user.importent_links.inject(true){|truthiness, n| !!(truthiness && n.marked_for_destruction?) }
-    if !reject and @user.save
-      flash[:notice] = "Successfully given Importent Links"
-      redirect_to class_path(@user)
-    else
-      1.times{@user.importent_links.build}
-      flash[:error] = "Failed to give the Links"
-      render :action => "index"
-    end
-  end
 
   def links
     @user = User.find(params[:class_id])
     @links = ImportentLink.where("user_id = #{@user.id}")
     render :layout => false
+  end
+  
+  def new
+    @class_id = params[:class_id]
+    @subject_id = params[:subject_id]
+    @user_id = params[:user_id]
+    @school_admin_id = SchoolAdmin.find(params[:school_name]) 
+    @importent_links = [ImportentLink.new()]
+  end
+  
+  def create
+    @class_id = params[:class_id]
+    @school_admin_id = SchoolAdmin.find(params[:school_name]) 
+    params[:importent_links].each do |imp|
+      imp = ImportentLink.new(imp.last)
+      imp.subject_id = params[:subject_id]
+      imp.cls_id = @class_id
+      imp.school_admin_id = params[:school_name]
+      imp.user_id = params[:user_id]
+      imp.save
+    end
+    flash[:notice] = "Important Links given Succesfully"
+    redirect_to class_path(:school_name =>current_user.school_admin.school,:id=>@class_id,:subject_id=>params[:subject_id])
   end
 end

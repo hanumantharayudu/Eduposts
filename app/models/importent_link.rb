@@ -1,5 +1,6 @@
 class ImportentLink < ActiveRecord::Base
-  attr_accessible :title, :links, :user_id,:link_document
+  attr_accessible :title, :links, :user_id,:link_document,:_destroy
+   attr_accessor :link_document_file_name,:_destroy
   validates :title, :links,:presence => true
   belongs_to :user
   has_attached_file :link_document,

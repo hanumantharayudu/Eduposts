@@ -3,7 +3,12 @@ class ClassesController < ApplicationController
   layout :get_layout
 
   def index
-    
+    @classes = Teacherclass.where("user_id = #{current_user.id}")
+    @school = SchoolAdmin.find(params[:school_name])
+    @user = User.find(current_user.id)
+    @subjects = @user.teacherclasses
+    @student_subjects = @user.studentclasses
+    @class = Cls.where(:school_admin_id => @school.id)
   end
 
   def switch_theme
@@ -14,7 +19,9 @@ class ClassesController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find(current_user.id)
+    @class = Cls.find(params[:id])
+    @subject = Subject.find(params[:subject_id])
     @header = "Posts"
     @posts = Tweet.where("tweet_id IS NULL and users.school_admin_id = '#{@user.school_admin_id}'").joins("left join users on users.id = tweets.user_id").order("created_at Desc").paginate :per_page => 20, :page => params[:page]
     respond_to do |format|
@@ -224,4 +231,26 @@ class ClassesController < ApplicationController
       render :action => 'invite_students'
     end
   end
+  
+  def student_subject_show
+    @user = User.find(current_user.id)
+    @subject = Subject.find(params[:subject_id])
+    @header = "Posts"
+    @posts = Tweet.where("tweet_id IS NULL and users.school_admin_id = '#{@user.school_admin_id}'").joins("left join users on users.id = tweets.user_id").order("created_at Desc").paginate :per_page => 20, :page => params[:page]
+    respond_to do |format|
+      format.html {render :partial => "show", :layout => false if request.xhr?}
+      format.js {render :partial => "show", :layout => false if request.xhr?}
+    end
+  end
+  
+  def students_show
+    @class_id = params[:class_id]
+    @subject_id = params[:subject_id]
+    @user_id = params[:user_id]
+    @school_admin_id = SchoolAdmin.find(params[:school_name])
+    @students_mark = params[:students_mark]
+    subject = Subject.find(params[:subject_id]) 
+    @subject_students = Studentclass.where("cls_id = #{subject.cls_id}")
+  end
+  
 end

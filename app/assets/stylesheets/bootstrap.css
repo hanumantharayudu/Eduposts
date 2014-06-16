@@ -6022,8 +6022,8 @@ to {
     border-radius: 0px;
     border-top: none;
     border-bottom: 1px solid lightgray;
-    border-left: none
-        border-right: none;
+    border-left: none;
+    border-right: none;
     box-shadow: none;
     background-color: #f9f9f9;
     color: rgb(0, 132, 180);
@@ -6548,7 +6548,7 @@ body.blue_background {
     margin-top: 3px;
     margin-left: -40px;
     left: 50%;
-    right: 50%:
+    right: 50%;
 }
 
 .launch_background {

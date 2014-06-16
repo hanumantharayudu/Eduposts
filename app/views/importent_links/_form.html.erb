@@ -1,0 +1,23 @@
+ <h2 class="posts_title with_bottom_border">Important Links</h2>
+  <div class="profile_note">Enter each link on a separate line</div>
+<%= form_tag class_importent_links_path(:school_name=>@school_admin_id.id,:class_id=>@class_id) do |f| %>
+
+  <% @importent_links.each do |imp| %>
+    <%= fields_for "importent_links[#{imp.object_id}]", imp do |builder| %>
+      <%= render 'importent_link_fields', f: builder %>
+    <% end %>
+  <% end %>
+
+  <%= link_to_add_faq( "Add More Important Links",ImportentLink,"importent_link_fields","importent_links") %>
+
+  <%= submit_tag %>
+<% end %>
+
+<script>
+  $('.add_fields').click(function(event) {
+    time = new Date().getTime();
+    regexp = new RegExp($(this).data('id'), 'g');
+    $(this).before($(this).data('fields').replace(regexp, time));
+    event.preventDefault();
+});
+</script>

@@ -1,0 +1,22 @@
+ 
+<%= form_tag class_readings_path(:school_name=>@school_admin_id.id,:class_id=>@class_id) do |f| %>
+
+  <% @readings.each do |read| %>
+    <%= fields_for "reads[#{read.object_id}]", read do |builder| %>
+      <%= render 'reading_fields', f: builder %>
+    <% end %>
+  <% end %>
+
+  <%= link_to_add_faq( "Add More Readings",Reading,"reading_fields","reads") %>
+
+  <%= submit_tag %>
+<% end %>
+
+<script>
+  $('.add_fields').click(function(event) {
+    time = new Date().getTime();
+    regexp = new RegExp($(this).data('id'), 'g');
+    $(this).before($(this).data('fields').replace(regexp, time));
+    event.preventDefault();
+});
+</script>
