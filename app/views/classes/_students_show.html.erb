@@ -11,8 +11,8 @@
       </td>
       <% if @students_mark == 'Mark Reports' %>
         <td>
-          <%= link_to "Create",new_class_markreport_path(@school_admin_id.id,@class_id,:user_id=>@user_id,:subject_id=>@subject_id,:receiver_id=>s.user.id),:remote=>true %> |
-          <%= link_to "View", class_markreports_path(@school_admin_id.id,@class_id,:user_id=>@user_id,:subject_id=>@subject_id,:receiver_id=>s.user.id),:remote=>true  %>
+          <%= link_to "Create",new_class_markreport_path(@school_admin_id.id,@class_id,:user_id=>@user_id,:subject_id=>@subject_id,:receiver_id=>s.user.id),:class=>"btn btn-mini btn-success",:remote=>true %> |
+          <%= link_to "View", class_markreports_path(@school_admin_id.id,@class_id,:user_id=>@user_id,:subject_id=>@subject_id,:receiver_id=>s.user.id),:class=>"btn btn-mini btn-info",:remote=>true  %>
         </td>
       <% else %>
         <td>
@@ -20,9 +20,9 @@
           <% if  attendance.present?   %>
             Attendance Given |
           <% else %>
-            <%= link_to "Attendence",new_class_attendence_path(@school_admin_id.id,@class_id,:user_id=>@user_id,:subject_id=>@subject_id,:receiver_id=>s.user.id),:remote=>true %> |
+            <%= link_to "Attendence",new_class_attendence_path(@school_admin_id.id,@class_id,:user_id=>@user_id,:subject_id=>@subject_id,:receiver_id=>s.user.id),:class=>"btn btn-mini btn-success",:remote=>true %> |
           <% end %>
-          <%= link_to "Record", class_attendences_path(@school_admin_id.id,@class_id,:user_id=>@user_id,:subject_id=>@subject_id,:receiver_id=>s.user.id),:remote=>true  %>
+          <%= link_to "Record", class_attendences_path(@school_admin_id.id,@class_id,:user_id=>@user_id,:subject_id=>@subject_id,:receiver_id=>s.user.id),:class=>"btn btn-mini btn-info",:remote=>true  %>
         </td>
       <% end %>
     </tr>

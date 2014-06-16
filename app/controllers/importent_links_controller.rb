@@ -31,4 +31,13 @@ class ImportentLinksController < ApplicationController
     flash[:notice] = "Important Links given Succesfully"
     redirect_to class_path(:school_name =>current_user.school_admin.school,:id=>@class_id,:subject_id=>params[:subject_id])
   end
+  
+  def index
+    @links = ImportentLink.where("user_id = #{current_user.id}")
+  end
+  
+  def student_subject_links
+    @links = ImportentLink.where("subject_id = #{params[:subject_id]}")
+  end
+  
 end

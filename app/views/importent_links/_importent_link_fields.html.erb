@@ -6,6 +6,6 @@
     <%= f.file_field :link_document, :id => "file_browse" %>
   </div>
   <%= f.text_area :links, :rows => 3, :placeholder => "Links", :class => "faqs_box for_readings" %>
-  <div class="delete_link"><%= link_to_remove_fields "delete", f %></div>
+  <div class="delete_link"><%= link_to_remove_fields image_tag("delete_post.png",:style=>"background: none repeat scroll 0 0 black;"), f %></div>
   <br/>
 </div>

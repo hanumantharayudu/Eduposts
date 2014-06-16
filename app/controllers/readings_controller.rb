@@ -30,4 +30,13 @@ class ReadingsController < ApplicationController
     @readings = Reading.where("user_id = #{@user.id}")
     render :layout => false
   end
+  
+  def index
+    @readings = Reading.where("user_id = #{current_user.id}")
+  end
+  
+  def student_subject_readings
+    @readings = Reading.where("subject_id = #{params[:subject_id]}")
+  end
+  
 end

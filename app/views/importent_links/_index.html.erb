@@ -1,0 +1,15 @@
+<div class="whats_happening">Important Links</div>
+<% if @links.present? %>
+  <% for link in @links %>
+    <div class="faqs_list" style="text-align: left;">
+      Class Name: <%= link.subject.cls.class_name if link.subject.present?  %><br/>
+      Subject Name: <%=  link.subject.subject_name if link.subject.present?%>
+      <div class="faq_title">
+       Title:  <%= link.title %><br/>
+       Links: <%= link.links %>
+      </div>
+    </div><br />
+  <% end %>
+<% else %>
+  <span style="color: red;position: relative;top: 60px;">No Importent Links</span>
+<% end %>

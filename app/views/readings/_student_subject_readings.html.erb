@@ -1,0 +1,13 @@
+<div class="whats_happening">Readings</div>
+<% if @readings.present? %>
+  <% for reading in @readings %>
+    <div class="faqs_list" style="text-align: left;">
+      <div class="faq_title">
+        Title: <%= reading.title %><br/>
+        Reading: <%= reading.reading %>
+      </div>
+    </div><br />
+  <% end %>
+<% else %>
+  <span style="color: red;position: relative;top: 1px;">No Readings</span>
+<% end %>

@@ -3,6 +3,7 @@ class Reading < ActiveRecord::Base
   attr_accessor :_destroy
   validates :title, :reading,:presence => true
   belongs_to :user
+  belongs_to :subject
   has_attached_file :read_document,
     :whiny => false,
     :storage => :s3,

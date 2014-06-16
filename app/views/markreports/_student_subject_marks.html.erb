@@ -1,0 +1,46 @@
+<h2><%= @subject_name.subject_name %> Mark Reports</h2>
+<% if @mark_reports.present? %>
+<table class="table table-striped" style="background:white;">
+  <tr>
+    <th>Pass Marks</th>
+    <th>Marks Obtained</th>
+    <th>Total Marks</th>
+    <th>Comment</th>
+  </tr>
+  <% @marks_reports.each do |m| %>
+    <tr>
+      <td>
+        <%= m.min_marks %>
+      </td>
+      <td>
+        <%= m.max_marks %>
+      </td>
+      <td>
+        <%= m.total_marks %>
+      </td>
+      <td>
+        <%= m.comment %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<% else %>
+<span style="color: red;position: relative;top: 1px;">No Mark Reports</span>
+<% end %>
+
+<style>
+  .table td  {
+    border-top: 1px solid #DDDDDD;
+    line-height: 20px;
+    padding: 8px;
+    text-align: center;
+    vertical-align: top;
+  }
+  .table th{
+    border-top: 1px solid #DDDDDD;
+    line-height: 20px;
+    padding: 8px;
+    text-align: center;
+    vertical-align: top;
+  }
+</style>

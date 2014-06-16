@@ -18,5 +18,6 @@ class NotificationsController < ApplicationController
       format.js
     end
   end
+  
 
 end

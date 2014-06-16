@@ -26,10 +26,13 @@ class FaqsController < ApplicationController
     redirect_to class_path(:school_name =>current_user.school_admin.school,:id=>@class_id,:subject_id=>params[:subject_id])
   end
 
-  def faqs
-    @user = User.find(params[:class_id])
-    @faqs = Faq.where("user_id = #{@user.id}")
-    render :layout => false
+  
+  def index
+    @faqs = Faq.where("user_id = #{current_user.id}")
+  end
+  
+  def student_subject_faqs
+    @faqs = Faq.where("subject_id = #{params[:subject_id]}")
   end
   
   

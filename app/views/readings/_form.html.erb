@@ -1,4 +1,5 @@
- 
+<h2 class="posts_title with_bottom_border">Important Readings</h2>
+  <div class="profile_note">Enter each link on a separate line</div>
 <%= form_tag class_readings_path(:school_name=>@school_admin_id.id,:class_id=>@class_id) do |f| %>
 
   <% @readings.each do |read| %>
@@ -18,5 +19,11 @@
     regexp = new RegExp($(this).data('id'), 'g');
     $(this).before($(this).data('fields').replace(regexp, time));
     event.preventDefault();
-});
+  });
 </script>
+
+<style>
+  input, textarea, .uneditable-input {
+    margin-left: 325px;
+  }
+</style>

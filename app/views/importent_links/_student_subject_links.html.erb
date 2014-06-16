@@ -1,0 +1,13 @@
+<div class="whats_happening">Important Links</div>
+<% if @links.present? %>
+  <% for link in @links %>
+    <div class="faqs_list" style="text-align: left;">
+      <div class="faq_title">
+        Title:  <%= link.title %><br/>
+        Links: <%= link.links %>
+      </div>
+    </div><br />
+  <% end %>
+<% else %>
+  <span style="color: red;position: relative;top: 1px;">No Importent Links</span>
+<% end %>

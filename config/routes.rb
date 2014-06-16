@@ -36,9 +36,17 @@ WebApp::Application.routes.draw do
   end
 
   resources :classes,:path => "/:school_name/classes/" do
-    resources :markreports 
+    resources :markreports do
+      collection do
+        get :student_subject_marks
+      end
+    end 
     resources :attendences
-    resources :teachertweets
+    resources :teachertweets do
+      collection do
+        get :student_subject_posts
+      end
+    end
     member do
       get :roster
       get :invite_students
@@ -53,17 +61,20 @@ WebApp::Application.routes.draw do
     resources :faqs do
       collection do
         get :faqs
+        get :student_subject_faqs
       end
     end
     resources :readings do
       collection do
         get :readings
+        get :student_subject_readings
       end
     end
     resources :importent_links do
       collection do
         post :upload_doc
         get :links
+        get :student_subject_links
       end
     end
   end

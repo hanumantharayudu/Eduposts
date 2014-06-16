@@ -3,6 +3,7 @@ class ImportentLink < ActiveRecord::Base
    attr_accessor :link_document_file_name,:_destroy
   validates :title, :links,:presence => true
   belongs_to :user
+  belongs_to :subject
   has_attached_file :link_document,
     :whiny => false,
     :storage => :s3,

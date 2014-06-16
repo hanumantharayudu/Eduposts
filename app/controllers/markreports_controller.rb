@@ -63,5 +63,10 @@ class MarkreportsController < ApplicationController
     end
   end
   
+  def student_subject_marks
+    @subject_name = Subject.find(params[:subject_id])
+    @marks_reports = Markreport.where("subject_id = #{params[:subject_id]} and receiver_id = #{current_user.id}")
+  end
+  
   
 end

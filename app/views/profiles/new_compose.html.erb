@@ -11,20 +11,6 @@
     </div>
     <img id="PreviewImage1" src="" alt="" style="float: left;height: 16px;margin-left: 35px;margin-top: -2px;width: 20px;display: none;"  />
     <%= f.submit 'Post', :class => 'btn send_button'%>
-    <% if current_user.role == 'teacher' %>
-      <div class="btn-group post_options_button">
-        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-          post
-          <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu">
-          <li><%= link_to_function "post", 'change_val(this)' %></li>
-          <li><%= link_to_function "announcement",'change_val(this)' %></li>
-          <li><%= link_to_function "assignment", 'change_val(this)' %></li>
-        </ul>
-      </div>
-    <% end %>
-
   <% end %>
 
 </div>
@@ -41,8 +27,4 @@
     }
   }
 
-  function change_val(val){
-    $(".post_options_button > a").html($(val).text()+''+'<span class="caret"></span>')
-    $("#tweet_post_box").val($(".post_options_button > a").text())
-  }
 </script>

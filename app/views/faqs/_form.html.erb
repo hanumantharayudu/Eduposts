@@ -1,4 +1,5 @@
- 
+<h2 class="posts_title with_bottom_border">Important Questions</h2>
+<div class="profile_note">Enter each question and answer on a separate line</div>
 <%= form_tag class_faqs_path(:school_name=>@school_admin_id.id,:class_id=>@class_id) do |f| %>
 
   <% @faqs.each do |faq| %>
@@ -7,7 +8,7 @@
     <% end %>
   <% end %>
 
-  <%= link_to_add_faq( "Add MoreFaqs",Faq,"faq_fields","faqs") %>
+  <%= link_to_add_faq("Add MoreFaqs",Faq,"faq_fields","faqs") %>
 
   <%= submit_tag %>
 <% end %>
@@ -18,5 +19,10 @@
     regexp = new RegExp($(this).data('id'), 'g');
     $(this).before($(this).data('fields').replace(regexp, time));
     event.preventDefault();
-});
+  });
 </script>
+<style>
+  input, textarea, .uneditable-input {
+    margin-left: 325px;
+  }
+</style>

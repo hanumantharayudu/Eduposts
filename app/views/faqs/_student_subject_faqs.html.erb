@@ -1,0 +1,13 @@
+<div class="whats_happening">FAQ's</div>
+<% if @faqs.present? %>
+  <% for faq in @faqs %>
+    <div class="faqs_list" style="text-align: left;">
+      <div class="faq_title">
+        Q: <%= faq.question %> ? <br/>
+        A: <%= faq.answer %>
+      </div>
+    </div><br />
+  <% end %>
+<% else %>
+  <span style="color: red;position: relative;top: 1px;">No FAQ's</span>
+<% end %>

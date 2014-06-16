@@ -62,7 +62,7 @@ module ApplicationHelper
     fields = fields_for("#{mod}[#{id}]", new_object) do |builder|
       render(partial,:f=> builder)
     end
-    link_to(name, '#', class: "add_fields", data: {id: id, fields: fields.gsub("\n", "")})
+    link_to(image_tag("add.jpeg",:style=>"float:right;margin-right: 108px;margin-top: -26px;"), '#', class: "add_fields", data: {id: id, fields: fields.gsub("\n", "")})
     end
   
   

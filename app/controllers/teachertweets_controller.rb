@@ -33,4 +33,15 @@ class TeachertweetsController < ApplicationController
     end
   end
   
+  def index
+    @post_box = params[:post]
+    @teacher_tweets = Teachertweet.where("user_id = #{current_user.id}")
+  end
+  
+  def student_subject_posts
+    @post_box = params[:post]
+    @tweets = Teachertweet.where("subject_id = #{params[:subject_id]} and receiver_id = #{current_user.id}")
+  end
+  
+  
 end

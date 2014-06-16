@@ -1,0 +1,21 @@
+<% if @teacher_tweets.present? %>
+  <% for post in @teacher_tweets %>
+    <% if post.tweet.post_box == @post_box %>
+      <div class="posts_box" id="post_<%= post.id %>">
+        <div style="float:left;clear:both;"><%= post_picture(post) %></div>
+        <div class="post">
+          <h5 class="post_name"><%= link_to post.user.fullname,profile_path(:school_name => current_user.school_admin.school,:id =>post.user.id), :style => 'color:black;font-weight:bold;' %></h5>
+          <div class="post_at">&nbsp<%= post.user.username %></div>
+          <div class="post_time"><%= time_ago_in_words(post.created_at) %></div>
+          <div class="post_text">
+            <%= post.tweet.body %><br/>
+            Class Name: <%= post.subject.cls.class_name %><br/>
+            Subject Name: <%= post.subject.subject_name %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% else %>
+  <span style="color: red;font-size: 15px;left: 300px;position: relative;">No <%=  params[:post].present? ? @header : "Posts" %>.</span>
+<% end %>
